@@ -1,6 +1,7 @@
 # NoProblemCrypt
-Build with C++ 17 and [wxWidgets](https://www.wxwidgets.org) library with the help of [wxFormBuilder](https://github.com/wxFormBuilder/wxFormBuilder)
+Написано на C++ 17 с библиотекой [wxWidgets](https://www.wxwidgets.org) и [wxFormBuilder](https://github.com/wxFormBuilder/wxFormBuilder)
 ## How to use
-Just run the [executable](https://github.com/martytyty2098/NoProblemCrypt/releases) and follow displayed instructions\
-If you find any bugs feel free to open an issue in this repo\
-This program is only tested on Windows 10
+Скачайте RUS здесь
+Запустите `NoProblemCrypt.exe` и следуйте инструкциям внутри программы\
+Если найдёте ошибки то открывайте жалобу здесь\
+Программа тестировалась только на Windows 10
