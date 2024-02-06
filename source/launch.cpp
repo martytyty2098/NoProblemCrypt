@@ -298,6 +298,8 @@ void MainFrame::CheckAllFiles()
             MyApp::ShowErrorMsg(wxT("The file at ") + userFiles[i] +
                 wxT(" was not opened, probably because its corrupted or because the program does not have access to it. Try removing \"read-only\" from that file or run this program with administrator permission."),
                 wxT("Error: file not opened"));
+		this->KillApp();
+		return;
         }
         tempfs.seekp(0, std::ios::end);
         totalBytes += tempfs.tellp();
