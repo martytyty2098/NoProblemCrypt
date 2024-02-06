@@ -48,7 +48,7 @@ void MainFrame::ShowMenu(wxCommandEvent& event)
 
     if (operatingMode & MainFrame::FILE)
     {
-        wxFileDialog selectFileDialog(this, wxString(wxT("Выберите файлы которые хотите ")) + (operatingMode & MainFrame::ENCRYPT ? wxT("зашифровать") : wxT("расшифровать")), wxT("Любой файл (*.*)|*.*"),
+        wxFileDialog selectFileDialog(this, wxString(wxT("Г‚Г»ГЎГҐГ°ГЁГІГҐ ГґГ Г©Г«Г» ГЄГ®ГІГ®Г°Г»ГҐ ГµГ®ГІГЁГІГҐ ")) + (operatingMode & MainFrame::ENCRYPT ? wxT("Г§Г ГёГЁГґГ°Г®ГўГ ГІГј") : wxT("Г°Г Г±ГёГЁГґГ°Г®ГўГ ГІГј")), wxT("Г‹ГѕГЎГ®Г© ГґГ Г©Г« (*.*)|*.*"),
             wxEmptyString, wxEmptyString, wxFD_OPEN | wxFD_FILE_MUST_EXIST | wxFD_MULTIPLE);
 
         if (selectFileDialog.ShowModal() == wxID_CANCEL) {
@@ -60,7 +60,7 @@ void MainFrame::ShowMenu(wxCommandEvent& event)
     }
     if (operatingMode & MainFrame::DIR)
     {
-        wxDirDialog selectDirDialog(this, wxString(wxT("Выберите папку которую хотите ")) + (operatingMode & MainFrame::ENCRYPT ? wxT("зашифровать") : wxT("расшифровать")),
+        wxDirDialog selectDirDialog(this, wxString(wxT("Г‚Г»ГЎГҐГ°ГЁГІГҐ ГЇГ ГЇГЄГі ГЄГ®ГІГ®Г°ГіГѕ ГµГ®ГІГЁГІГҐ ")) + (operatingMode & MainFrame::ENCRYPT ? wxT("Г§Г ГёГЁГґГ°Г®ГўГ ГІГј") : wxT("Г°Г Г±ГёГЁГґГ°Г®ГўГ ГІГј")),
             wxEmptyString, wxDD_DEFAULT_STYLE | wxDD_DIR_MUST_EXIST);
 
         if (selectDirDialog.ShowModal() == wxID_CANCEL) {
@@ -81,10 +81,10 @@ void MainFrame::ShowMenu(wxCommandEvent& event)
     panelMain->Show();
     panelMain->GetContainingSizer()->Layout();
 
-    wxString info_output = wxT("Вы выбрали ") + wxString::Format(wxT("%i"), userFiles.GetCount());
-    info_output.append(wxString(wxT(" файл")) + (userFiles.GetCount() == 1 ? wxT("") : wxT("ов")) + wxT(" для того чтобы ") + (operatingMode & MainFrame::ENCRYPT ? wxT("зашифровать") : wxT("расшифровать")) + wxT(".\n"));
+    wxString info_output = wxT("Г‚Г» ГўГ»ГЎГ°Г Г«ГЁ ") + wxString::Format(wxT("%i"), userFiles.GetCount());
+    info_output.append(wxString(wxT(" ГґГ Г©Г«")) + (userFiles.GetCount() == 1 ? wxT("") : wxT("Г®Гў")) + wxT(" Г¤Г«Гї ГІГ®ГЈГ® Г·ГІГ®ГЎГ» ") + (operatingMode & MainFrame::ENCRYPT ? wxT("Г§Г ГёГЁГґГ°Г®ГўГ ГІГј") : wxT("Г°Г Г±ГёГЁГґГ°Г®ГўГ ГІГј")) + wxT(".\n"));
     infoText->SetLabel(info_output);
-    mainButton->SetLabel(operatingMode & MainFrame::ENCRYPT ? wxT("Зашифровать") : wxT("Расшифровать"));
+    mainButton->SetLabel(operatingMode & MainFrame::ENCRYPT ? wxT("Г‡Г ГёГЁГґГ°Г®ГўГ ГІГј") : wxT("ГђГ Г±ГёГЁГґГ°Г®ГўГ ГІГј"));
     infoText->GetContainingSizer()->Layout();
 }
 
@@ -95,7 +95,7 @@ void MainFrame::MainButtonOnClick(wxCommandEvent& event)
         wxString storageDir = dirPicker->GetTextCtrlValue();
         if (!std::filesystem::is_directory(storageDir.fn_str()))
         {
-            invalidDirInfo->ShowMessage(wxT("Папка не существует"));
+            invalidDirInfo->ShowMessage(wxT("ГЏГ ГЇГЄГ  Г­ГҐ Г±ГіГ№ГҐГ±ГІГўГіГҐГІ"));
             return;
         }
         creationDir = wxString(storageDir.fn_str() / CreateFreeDir(storageDir.fn_str(), "ALL_FILES"));
@@ -165,7 +165,7 @@ void MainFrame::OnPasswordSubmit(wxCommandEvent& event)
     {
         if (!pwdctrl->GetValue().IsAscii())
         {
-            passwordEnterText->SetLabel(wxT("Этот пароль содержит недопустимые символы,\nразрешены только английские буквы и цифры."));
+            passwordEnterText->SetLabel(wxT("ГќГІГ®ГІ ГЇГ Г°Г®Г«Гј Г±Г®Г¤ГҐГ°Г¦ГЁГІ Г­ГҐГ¤Г®ГЇГіГ±ГІГЁГ¬Г»ГҐ Г±ГЁГ¬ГўГ®Г«Г»,\nГ°Г Г§Г°ГҐГёГҐГ­Г» ГІГ®Г«ГјГЄГ® Г Г­ГЈГ«ГЁГ©Г±ГЄГЁГҐ ГЎГіГЄГўГ» ГЁ Г¶ГЁГґГ°Г»."));
             pwdctrl->SetValue("");
             pwdctrlHidden->SetValue("");
             if (pwdctrl->Show())
@@ -177,7 +177,7 @@ void MainFrame::OnPasswordSubmit(wxCommandEvent& event)
             return;
         }
         password = pwdctrl->GetValue();
-        passwordEnterText->SetLabel(wxT("Повторите пароль."));
+        passwordEnterText->SetLabel(wxT("ГЏГ®ГўГІГ®Г°ГЁГІГҐ ГЇГ Г°Г®Г«Гј."));
         pwdctrl->SetValue("");
         pwdctrlHidden->SetValue("");
         pwdctrl->GetContainingSizer()->Layout();
@@ -197,7 +197,7 @@ void MainFrame::OnPasswordSubmit(wxCommandEvent& event)
         }
         else
         {
-            passwordEnterText->SetLabel(wxT("Пароль не совпадает, попробуйте заново."));
+            passwordEnterText->SetLabel(wxT("ГЏГ Г°Г®Г«Гј Г­ГҐ Г±Г®ГўГЇГ Г¤Г ГҐГІ, ГЇГ®ГЇГ°Г®ГЎГіГ©ГІГҐ Г§Г Г­Г®ГўГ®."));
             pwdctrl->SetValue("");
             pwdctrlHidden->SetValue("");
             pwdctrl->GetContainingSizer()->Layout();
@@ -213,7 +213,7 @@ void MainFrame::FromPasswordToMenu(wxCommandEvent& event)
     passwordTxtCtrlVisible->SetValue("");
     passwordPanel->Hide();
     panelMain->Show();
-    passwordEnterText->SetLabel(wxT("Теперь вы должны ввести пароль который нужно хранить в надёжном месте, если вы утратите свой пароль то не сможете расшифровать файлы обратно."));
+    passwordEnterText->SetLabel(wxT("Г’ГҐГЇГҐГ°Гј ГўГ» Г¤Г®Г«Г¦Г­Г» ГўГўГҐГ±ГІГЁ ГЇГ Г°Г®Г«Гј ГЄГ®ГІГ®Г°Г»Г© Г­ГіГ¦Г­Г® ГµГ°Г Г­ГЁГІГј Гў Г­Г Г¤ВёГ¦Г­Г®Г¬ Г¬ГҐГ±ГІГҐ, ГҐГ±Г«ГЁ ГўГ» ГіГІГ°Г ГІГЁГІГҐ Г±ГўГ®Г© ГЇГ Г°Г®Г«Гј ГІГ® Г­ГҐ Г±Г¬Г®Г¦ГҐГІГҐ Г°Г Г±ГёГЁГґГ°Г®ГўГ ГІГј ГґГ Г©Г«Г» Г®ГЎГ°Г ГІГ­Г®."));
     panelMain->GetContainingSizer()->Layout();
 }
 
@@ -238,9 +238,9 @@ void MainFrame::KillApp()
 
 void MainFrame::FromConfirmToProcess(wxCommandEvent& event)
 {
-    if (licenseLink->GetLabel() != wxT("Вы прочитали всё выше?"))
+    if (licenseLink->GetLabel() != wxT("Г‚Г» ГЇГ°Г®Г·ГЁГІГ Г«ГЁ ГўГ±Вё ГўГ»ГёГҐ?"))
     {
-        licenseLink->SetLabel(wxT("Вы прочитали всё выше?"));
+        licenseLink->SetLabel(wxT("Г‚Г» ГЇГ°Г®Г·ГЁГІГ Г«ГЁ ГўГ±Вё ГўГ»ГёГҐ?"));
         licenseLink->GetContainingSizer()->Layout();
         return;
     }
@@ -269,20 +269,20 @@ void MainFrame::FromPasswordToConfirmation()
     {
         if (operatingMode & MainFrame::ENCRYPT)
         {
-            confirmationInfo->WriteText(wxT("Вы выбрали зашифровать ваши файлы на месте, это значит что эти файлы будут переписаны и единственный способ их восстановить - это расшифровать их обратно этой программой, используя при этом тот же самый пароль который вы ввели ранее.\n"));
+            confirmationInfo->WriteText(wxT("Г‚Г» ГўГ»ГЎГ°Г Г«ГЁ Г§Г ГёГЁГґГ°Г®ГўГ ГІГј ГўГ ГёГЁ ГґГ Г©Г«Г» Г­Г  Г¬ГҐГ±ГІГҐ, ГЅГІГ® Г§Г­Г Г·ГЁГІ Г·ГІГ® ГЅГІГЁ ГґГ Г©Г«Г» ГЎГіГ¤ГіГІ ГЇГҐГ°ГҐГЇГЁГ±Г Г­Г» ГЁ ГҐГ¤ГЁГ­Г±ГІГўГҐГ­Г­Г»Г© Г±ГЇГ®Г±Г®ГЎ ГЁГµ ГўГ®Г±Г±ГІГ Г­Г®ГўГЁГІГј - ГЅГІГ® Г°Г Г±ГёГЁГґГ°Г®ГўГ ГІГј ГЁГµ Г®ГЎГ°Г ГІГ­Г® ГЅГІГ®Г© ГЇГ°Г®ГЈГ°Г Г¬Г¬Г®Г©, ГЁГ±ГЇГ®Г«ГјГ§ГіГї ГЇГ°ГЁ ГЅГІГ®Г¬ ГІГ®ГІ Г¦ГҐ Г±Г Г¬Г»Г© ГЇГ Г°Г®Г«Гј ГЄГ®ГІГ®Г°Г»Г© ГўГ» ГўГўГҐГ«ГЁ Г°Г Г­ГҐГҐ.\n"));
         }
         
         confirmationInfo->BeginTextColour(wxColour(170, 0, 0));
-        confirmationInfo->WriteText(wxT("ВАЖНО: НЕ ЗАКРЫВАЙТЕ ПРОГРАММУ ВО ВРЕМЯ СЛЕДУЮЩЕГО ЭТАПА! Если закроете, ваши файлы будут повреждены навсегда."));
+        confirmationInfo->WriteText(wxT("Г‚ГЂГ†ГЌГЋ: ГЌГ… Г‡ГЂГЉГђГ›Г‚ГЂГ‰Г’Г… ГЏГђГЋГѓГђГЂГЊГЊГ“ Г‚ГЋ Г‚ГђГ…ГЊГџ Г‘Г‹Г…Г„Г“ГћГ™Г…ГѓГЋ ГќГ’ГЂГЏГЂ! Г…Г±Г«ГЁ Г§Г ГЄГ°Г®ГҐГІГҐ, ГўГ ГёГЁ ГґГ Г©Г«Г» ГЎГіГ¤ГіГІ ГЇГ®ГўГ°ГҐГ¦Г¤ГҐГ­Г» Г­Г ГўГ±ГҐГЈГ¤Г ."));
         confirmationInfo->EndTextColour();
     }
     else
     {
-        confirmationInfo->WriteText(wxString(wxT("Все ваши ")) + (operatingMode & MainFrame::ENCRYPT ? wxT("зашифрованные") : wxT("расшифрованные")) + wxT(" файлы будут созданы в этой папке:\n"));
+        confirmationInfo->WriteText(wxString(wxT("Г‚Г±ГҐ ГўГ ГёГЁ ")) + (operatingMode & MainFrame::ENCRYPT ? wxT("Г§Г ГёГЁГґГ°Г®ГўГ Г­Г­Г»ГҐ") : wxT("Г°Г Г±ГёГЁГґГ°Г®ГўГ Г­Г­Г»ГҐ")) + wxT(" ГґГ Г©Г«Г» ГЎГіГ¤ГіГІ Г±Г®Г§Г¤Г Г­Г» Гў ГЅГІГ®Г© ГЇГ ГЇГЄГҐ:\n"));
         confirmationInfo->WriteText(creationDir + wxT("\n"));
     }
     confirmationInfo->BeginBold();
-    confirmationInfo->WriteText(wxT(" Если вы забудете свой пароль, ваши файлы будет невозможно восстановить.\n"));
+    confirmationInfo->WriteText(wxT(" Г…Г±Г«ГЁ ГўГ» Г§Г ГЎГіГ¤ГҐГІГҐ Г±ГўГ®Г© ГЇГ Г°Г®Г«Гј, ГўГ ГёГЁ ГґГ Г©Г«Г» ГЎГіГ¤ГҐГІ Г­ГҐГўГ®Г§Г¬Г®Г¦Г­Г® ГўГ®Г±Г±ГІГ Г­Г®ГўГЁГІГј.\n"));
     confirmationInfo->EndBold();
 }
 
@@ -295,9 +295,11 @@ void MainFrame::CheckAllFiles()
         std::fstream tempfs(userFiles[i].fn_str(), ios_flag);
         if (!tempfs.is_open())
         {
-            MyApp::ShowErrorMsg(wxT("Файл по пути ") + userFiles[i] +
-                wxT(" не был открыт, возможно потому что у программы нет к нему доступа, попробуйте убрать с этого файла \"Только чтение\" или запустить эту программу в режиме администратора."),
-                wxT("Ошибка: файл не был открыт"));
+            MyApp::ShowErrorMsg(wxT("Г”Г Г©Г« ГЇГ® ГЇГіГІГЁ ") + userFiles[i] +
+                wxT(" Г­ГҐ ГЎГ»Г« Г®ГІГЄГ°Г»ГІ, ГўГ®Г§Г¬Г®Г¦Г­Г® ГЇГ®ГІГ®Г¬Гі Г·ГІГ® Гі ГЇГ°Г®ГЈГ°Г Г¬Г¬Г» Г­ГҐГІ ГЄ Г­ГҐГ¬Гі Г¤Г®Г±ГІГіГЇГ , ГЇГ®ГЇГ°Г®ГЎГіГ©ГІГҐ ГіГЎГ°Г ГІГј Г± ГЅГІГ®ГЈГ® ГґГ Г©Г«Г  \"Г’Г®Г«ГјГЄГ® Г·ГІГҐГ­ГЁГҐ\" ГЁГ«ГЁ Г§Г ГЇГіГ±ГІГЁГІГј ГЅГІГі ГЇГ°Г®ГЈГ°Г Г¬Г¬Гі Гў Г°ГҐГ¦ГЁГ¬ГҐ Г Г¤Г¬ГЁГ­ГЁГ±ГІГ°Г ГІГ®Г°Г ."),
+                wxT("ГЋГёГЁГЎГЄГ : ГґГ Г©Г« Г­ГҐ ГЎГ»Г« Г®ГІГЄГ°Г»ГІ"));
+		this->KillApp();
+		return;
         }
         tempfs.seekp(0, std::ios::end);
         totalBytes += tempfs.tellp();
@@ -317,7 +319,7 @@ void MainFrame::ProcessAllFiles()
         }
         {
             auto evt = new wxCommandEvent(MESSAGE_FROM_THREAD);
-            evt->SetClientData(new ThreadMessage(ThreadMessage::CHANGE_FILES_AMOUNT_TEXT, -1, -1, wxString::Format(wxT("%i"), i) + wxT(" файлов из ") + wxString::Format(wxT("%i"), userFiles.GetCount())));
+            evt->SetClientData(new ThreadMessage(ThreadMessage::CHANGE_FILES_AMOUNT_TEXT, -1, -1, wxString::Format(wxT("%i"), i) + wxT(" ГґГ Г©Г«Г®Гў ГЁГ§ ") + wxString::Format(wxT("%i"), userFiles.GetCount())));
             wxQueueEvent(this, evt);
         }
         FastEncryptFile(userFiles[i], password.ToStdString(), operatingMode & MainFrame::ENCRYPT, in_place, creationDir);
@@ -361,10 +363,10 @@ void MainFrame::FromProcessToEnd()
     endPanel->GetContainingSizer()->Layout();
     wxString endTextVal;
     if (!in_place) {
-        endTextVal = (operatingMode & MainFrame::ENCRYPT ? wxString(wxT("Зашифрованные")) : wxString(wxT("Расшифрованные"))) + wxT(" файлы были созданы в ") + creationDir + wxT("\n");
+        endTextVal = (operatingMode & MainFrame::ENCRYPT ? wxString(wxT("Г‡Г ГёГЁГґГ°Г®ГўГ Г­Г­Г»ГҐ")) : wxString(wxT("ГђГ Г±ГёГЁГґГ°Г®ГўГ Г­Г­Г»ГҐ"))) + wxT(" ГґГ Г©Г«Г» ГЎГ»Г«ГЁ Г±Г®Г§Г¤Г Г­Г» Гў ") + creationDir + wxT("\n");
     }
-    endTextVal.append(wxT("Программа отработала, смотрите сообщения ниже если произошли ошибки."));
-    endTextVal.append(wxT("\nЛог:\n") + (NPClog.empty() ? wxString(wxT("Пусто")) : NPClog));
+    endTextVal.append(wxT("ГЏГ°Г®ГЈГ°Г Г¬Г¬Г  Г®ГІГ°Г ГЎГ®ГІГ Г«Г , Г±Г¬Г®ГІГ°ГЁГІГҐ Г±Г®Г®ГЎГ№ГҐГ­ГЁГї Г­ГЁГ¦ГҐ ГҐГ±Г«ГЁ ГЇГ°Г®ГЁГ§Г®ГёГ«ГЁ Г®ГёГЁГЎГЄГЁ."));
+    endTextVal.append(wxT("\nГ‹Г®ГЈ:\n") + (NPClog.empty() ? wxString(wxT("ГЏГіГ±ГІГ®")) : NPClog));
     endText->SetValue(endTextVal);
 }
 
@@ -389,16 +391,16 @@ std::filesystem::path FastEncryptFile(const wxString& path_to_file, const std::s
     if (!file.is_open())
     {
         auto evt = new wxCommandEvent(MESSAGE_FROM_THREAD);
-        evt->SetClientData(new ThreadMessage(ThreadMessage::LOG_APPEND, -1, -1, wxT("Ошибка: файл по пути ") + path_to_file +
-            wxT(" не был открыт, возможно потому что у программы нет к нему доступа, попробуйте убрать с этого файла \"Только чтение\" или запустить эту программу в режиме администратора.\n")));
+        evt->SetClientData(new ThreadMessage(ThreadMessage::LOG_APPEND, -1, -1, wxT("ГЋГёГЁГЎГЄГ : ГґГ Г©Г« ГЇГ® ГЇГіГІГЁ ") + path_to_file +
+            wxT(" Г­ГҐ ГЎГ»Г« Г®ГІГЄГ°Г»ГІ, ГўГ®Г§Г¬Г®Г¦Г­Г® ГЇГ®ГІГ®Г¬Гі Г·ГІГ® Гі ГЇГ°Г®ГЈГ°Г Г¬Г¬Г» Г­ГҐГІ ГЄ Г­ГҐГ¬Гі Г¤Г®Г±ГІГіГЇГ , ГЇГ®ГЇГ°Г®ГЎГіГ©ГІГҐ ГіГЎГ°Г ГІГј Г± ГЅГІГ®ГЈГ® ГґГ Г©Г«Г  \"Г’Г®Г«ГјГЄГ® Г·ГІГҐГ­ГЁГҐ\" ГЁГ«ГЁ Г§Г ГЇГіГ±ГІГЁГІГј ГЅГІГі ГЇГ°Г®ГЈГ°Г Г¬Г¬Гі Гў Г°ГҐГ¦ГЁГ¬ГҐ Г Г¤Г¬ГЁГ­ГЁГ±ГІГ°Г ГІГ®Г°Г .\n")));
         wxQueueEvent(mainFrame, evt);
         return std::string();
     }
     if (!clonedFile.is_open() && !in_place)
     {
         auto evt = new wxCommandEvent(MESSAGE_FROM_THREAD);
-        evt->SetClientData(new ThreadMessage(ThreadMessage::LOG_APPEND, -1, -1, wxT("Ошибка: невозможно создать файл в папке ") + writeDir +
-            wxT(" попробуйте запустить эту программу в режиме администратора или освободите место на диске.\n")));
+        evt->SetClientData(new ThreadMessage(ThreadMessage::LOG_APPEND, -1, -1, wxT("ГЋГёГЁГЎГЄГ : Г­ГҐГўГ®Г§Г¬Г®Г¦Г­Г® Г±Г®Г§Г¤Г ГІГј ГґГ Г©Г« Гў ГЇГ ГЇГЄГҐ ") + writeDir +
+            wxT(" ГЇГ®ГЇГ°Г®ГЎГіГ©ГІГҐ Г§Г ГЇГіГ±ГІГЁГІГј ГЅГІГі ГЇГ°Г®ГЈГ°Г Г¬Г¬Гі Гў Г°ГҐГ¦ГЁГ¬ГҐ Г Г¤Г¬ГЁГ­ГЁГ±ГІГ°Г ГІГ®Г°Г  ГЁГ«ГЁ Г®Г±ГўГ®ГЎГ®Г¤ГЁГІГҐ Г¬ГҐГ±ГІГ® Г­Г  Г¤ГЁГ±ГЄГҐ.\n")));
         wxQueueEvent(mainFrame, evt);
         return std::string();
     }
@@ -449,8 +451,8 @@ std::filesystem::path FastEncryptFile(const wxString& path_to_file, const std::s
     if (!in_place && std::filesystem::file_size(filePath) != std::filesystem::file_size(clonedFilePath))
     {
         auto evt = new wxCommandEvent(MESSAGE_FROM_THREAD);
-        evt->SetClientData(new ThreadMessage(ThreadMessage::LOG_APPEND, -1, -1, wxString(wxT("Невозможно безопасно ")) + (encrypt ? wxT("зашифровать") : wxT("расшифровать")) + wxT(" файл по пути ") + path_to_file +
-            wxT(" потому, он был пропущен программой. Попробойте запустить эту программу в режиме администратора или освободите место на диске.\n")));
+        evt->SetClientData(new ThreadMessage(ThreadMessage::LOG_APPEND, -1, -1, wxString(wxT("ГЌГҐГўГ®Г§Г¬Г®Г¦Г­Г® ГЎГҐГ§Г®ГЇГ Г±Г­Г® ")) + (encrypt ? wxT("Г§Г ГёГЁГґГ°Г®ГўГ ГІГј") : wxT("Г°Г Г±ГёГЁГґГ°Г®ГўГ ГІГј")) + wxT(" ГґГ Г©Г« ГЇГ® ГЇГіГІГЁ ") + path_to_file +
+            wxT(" ГЇГ®ГІГ®Г¬Гі, Г®Г­ ГЎГ»Г« ГЇГ°Г®ГЇГіГ№ГҐГ­ ГЇГ°Г®ГЈГ°Г Г¬Г¬Г®Г©. ГЏГ®ГЇГ°Г®ГЎГ®Г©ГІГҐ Г§Г ГЇГіГ±ГІГЁГІГј ГЅГІГі ГЇГ°Г®ГЈГ°Г Г¬Г¬Гі Гў Г°ГҐГ¦ГЁГ¬ГҐ Г Г¤Г¬ГЁГ­ГЁГ±ГІГ°Г ГІГ®Г°Г  ГЁГ«ГЁ Г®Г±ГўГ®ГЎГ®Г¤ГЁГІГҐ Г¬ГҐГ±ГІГ® Г­Г  Г¤ГЁГ±ГЄГҐ.\n")));
         wxQueueEvent(mainFrame, evt);
         
         safeDeleteFile(clonedFilePath);
@@ -503,8 +505,8 @@ std::filesystem::path CreateFreeDir(const std::filesystem::path& parentDir, cons
 
     if (!std::filesystem::create_directory(path_out))
     {
-        MyApp::ShowErrorMsg(wxT("Невозможно создать папку в ") + wxString(parentDir) + " попробуйте запустить эту программу в режиме администратора.",
-            wxT("Ошибка: невозможно создать папку"));
+        MyApp::ShowErrorMsg(wxT("ГЌГҐГўГ®Г§Г¬Г®Г¦Г­Г® Г±Г®Г§Г¤Г ГІГј ГЇГ ГЇГЄГі Гў ") + wxString(parentDir) + " ГЇГ®ГЇГ°Г®ГЎГіГ©ГІГҐ Г§Г ГЇГіГ±ГІГЁГІГј ГЅГІГі ГЇГ°Г®ГЈГ°Г Г¬Г¬Гі Гў Г°ГҐГ¦ГЁГ¬ГҐ Г Г¤Г¬ГЁГ­ГЁГ±ГІГ°Г ГІГ®Г°Г .",
+            wxT("ГЋГёГЁГЎГЄГ : Г­ГҐГўГ®Г§Г¬Г®Г¦Г­Г® Г±Г®Г§Г¤Г ГІГј ГЇГ ГЇГЄГі"));
     }
     return path_out;
 }
