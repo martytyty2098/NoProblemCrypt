@@ -22,7 +22,6 @@ MainFrame::MainFrame()
     operatingMode(MainFrame::Mode::NONE)
 {
     in_place = in_place_checkbox->IsChecked();
-    greetingText->ApplyAlignmentToSelection(wxTEXT_ALIGNMENT_CENTER);
 }
 
 void MainFrame::ShowMenu(wxCommandEvent& event)
@@ -70,10 +69,14 @@ void MainFrame::ShowMenu(wxCommandEvent& event)
         }
 
         const std::filesystem::path dirPath = selectDirDialog.GetPath().fn_str();
+        sourceDir = dirPath;
         for (auto const& dir_entry : std::filesystem::recursive_directory_iterator(dirPath, std::filesystem::directory_options::skip_permission_denied))
         {
             if (dir_entry.is_regular_file()) {
                 userFiles.Add(wxString(dir_entry.path()));
+            }
+            else if (dir_entry.is_directory()) {
+                userDirs.Add(wxString(dir_entry.path()));
             }
         }
     }
@@ -98,7 +101,8 @@ void MainFrame::MainButtonOnClick(wxCommandEvent& event)
             invalidDirInfo->ShowMessage(wxT("Invalid directory"));
             return;
         }
-        creationDir = wxString(storageDir.fn_str() / CreateFreeDir(storageDir.fn_str(), "ALL_FILES"));
+        creationDir = wxString(storageDir.fn_str() / CreateFreeDir(storageDir.fn_str(), 
+            std::string("ALL_") + (operatingMode & MainFrame::ENCRYPT ? "EN" : "DE") + "CRYPTED_FILES"));
     }
 
     currStage = MainFrame::Password;
@@ -253,7 +257,6 @@ void MainFrame::FromConfirmToProcess(wxCommandEvent& event)
 
     this->Bind(MESSAGE_FROM_THREAD, &MainFrame::OnThreadMessage, this);
 
-    CheckAllFiles();
     std::thread work_horse(ProcessAllFilesW);
     work_horse.detach();
 }
@@ -288,7 +291,10 @@ void MainFrame::FromPasswordToConfirmation()
 
 void MainFrame::CheckAllFiles()
 {
-    int ios_flag = std::ios::out | std::ios::app; // very important std::ios::app
+    int ios_flag = std::ios::in; // very important std::ios::app
+    if (in_place)
+        ios_flag = ios_flag | std::ios::out | std::ios::app;
+
     for (size_t i = 0; i < userFiles.GetCount(); ++i)
     {
         auto evt = new wxCommandEvent(MESSAGE_FROM_THREAD);
@@ -298,11 +304,13 @@ void MainFrame::CheckAllFiles()
             MyApp::ShowErrorMsg(wxT("The file at ") + userFiles[i] +
                 wxT(" was not opened, probably because its corrupted or because the program does not have access to it. Try removing \"read-only\" from that file or run this program with administrator permission."),
                 wxT("Error: file not opened"));
-		this->KillApp();
-		return;
+		    this->KillApp();
+		    return;
         }
         tempfs.seekp(0, std::ios::end);
-        totalBytes += tempfs.tellp();
+        if (totalBytes < _UI64_MAX) {
+            totalBytes += tempfs.tellp() / 1000;
+        }
         evt->SetClientData(new ThreadMessage(ThreadMessage::CHANGE_SINGLE_GAUGE, userFiles.GetCount(), i + 1));
         wxQueueEvent(this, evt);
     }
@@ -310,6 +318,13 @@ void MainFrame::CheckAllFiles()
 
 void MainFrame::ProcessAllFiles()
 {
+    for (size_t i = 0; i < userDirs.GetCount(); ++i)
+    {
+        std::filesystem::path relative = std::filesystem::relative(userDirs[i].fn_str(), sourceDir);
+        std::filesystem::path toCreate = std::filesystem::path(creationDir.fn_str()) / relative;
+        std::filesystem::create_directories(toCreate);
+    }
+
     for (size_t i = 0; i < userFiles.GetCount(); ++i)
     {
         {
@@ -322,7 +337,10 @@ void MainFrame::ProcessAllFiles()
             evt->SetClientData(new ThreadMessage(ThreadMessage::CHANGE_FILES_AMOUNT_TEXT, -1, -1, wxString::Format(wxT("%i"), i) + wxT(" files out of ") + wxString::Format(wxT("%i"), userFiles.GetCount())));
             wxQueueEvent(this, evt);
         }
-        FastEncryptFile(userFiles[i], password.ToStdString(), operatingMode & MainFrame::ENCRYPT, in_place, creationDir);
+
+        std::filesystem::path relative = std::filesystem::relative(userFiles[i].fn_str(), sourceDir);
+        std::filesystem::path toCreate = std::filesystem::path(creationDir.fn_str()) / relative;
+        FastEncryptFile(userFiles[i], password.ToStdString(), operatingMode & MainFrame::ENCRYPT, in_place, wxString(toCreate.remove_filename()));
         
     }
     auto evt = new wxCommandEvent(MESSAGE_FROM_THREAD);
@@ -429,7 +447,7 @@ std::filesystem::path FastEncryptFile(const wxString& path_to_file, const std::s
 		(in_place ? file : clonedFile).write(globalBuff, bytesRead);
         if (file.tellp() % delim == 0)
         {
-            processedBytes += delim;
+            processedBytes += delim / 1000;
             {
                 auto evt = new wxCommandEvent(MESSAGE_FROM_THREAD);
                 auto ratio = double(file.tellp()) / double(fileSize);
@@ -481,6 +499,7 @@ void safeDeleteFile(const std::filesystem::path& filePath)
 
 void ProcessAllFilesW()
 {
+    reinterpret_cast<MainFrame*>(mainFrame)->CheckAllFiles();
     reinterpret_cast<MainFrame*>(mainFrame)->ProcessAllFiles();
 }
 

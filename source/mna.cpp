@@ -16,7 +16,7 @@ frameMain::frameMain( wxWindow* parent, wxWindowID id, const wxString& title, co
 	wxBoxSizer* bSizerFrameMain;
 	bSizerFrameMain = new wxBoxSizer( wxVERTICAL );
 
-	greetingText = new wxRichTextCtrl( this, wxID_ANY, _("How to use:\nClick on \"File\" button in the top-left corner of the screen."), wxDefaultPosition, wxSize( -1,-1 ), wxTE_READONLY|wxBORDER_SIMPLE|wxHSCROLL|wxVSCROLL|wxWANTS_CHARS );
+	greetingText = new wxRichTextCtrl( this, wxID_ANY, _("How to use:\nClick on \"File\" button in the top-left corner of the screen.\n\nAbout:\nThis software is made for encrypting and decrypting your files of any type. Any files that were encrypted by this program can be decrypted only with this program using the exact same password that you inserted before encryption.\nIt is impossible to restore your files without that password, so if you lose it, all your encrypted files will be rendered useless forever, you can consider it both a pro and a con.\n\nDeveloper:\nEmail: shkafchik.game@gmail.com\nSource code: https://github.com/martytyty2098/NoProblemCrypt\nGithub account: https://github.com/martytyty2098"), wxDefaultPosition, wxSize( -1,-1 ), wxTE_AUTO_URL|wxTE_READONLY|wxBORDER_SIMPLE|wxHSCROLL|wxVSCROLL|wxWANTS_CHARS );
 	greetingText->SetFont( wxFont( 16, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Consolas") ) );
 
 	bSizerFrameMain->Add( greetingText, 1, wxALL|wxEXPAND, 5 );

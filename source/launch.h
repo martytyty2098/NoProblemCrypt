@@ -21,8 +21,8 @@ frameMain* mainFrame = nullptr;
 const std::streamsize buff_size = 8192;
 char* const globalBuff = new char[buff_size];
 wxString NPClog;
-size_t totalBytes = 0;
-size_t processedBytes = 0;
+uint64_t totalBytes = 0;
+uint64_t processedBytes = 0;
 
 class MyApp : public wxApp
 {
@@ -59,6 +59,8 @@ private:
     wxString creationDir = "";
     Stage currStage = MainFrame::Greeting;
     wxArrayString userFiles;
+    wxArrayString userDirs;
+    std::filesystem::path sourceDir;
     wxString password;
 };
 
