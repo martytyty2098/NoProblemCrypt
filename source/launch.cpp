@@ -322,7 +322,7 @@ void MainFrame::ProcessAllFiles()
     {
         std::filesystem::path relative = std::filesystem::relative(userDirs[i].fn_str(), sourceDir);
         std::filesystem::path toCreate = std::filesystem::path(creationDir.fn_str()) / relative;
-        std::filesystem::create_directories(toCreate);
+        std::filesystem::create_directory(toCreate);
     }
 
     for (size_t i = 0; i < userFiles.GetCount(); ++i)
