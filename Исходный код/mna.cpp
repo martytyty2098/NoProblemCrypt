@@ -9,243 +9,243 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
-frameMain::frameMain(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style) : wxFrame(parent, id, title, pos, size, style)
+frameMain::frameMain( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
-	this->SetSizeHints(wxDefaultSize, wxDefaultSize);
+	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
 	wxBoxSizer* bSizerFrameMain;
-	bSizerFrameMain = new wxBoxSizer(wxVERTICAL);
+	bSizerFrameMain = new wxBoxSizer( wxVERTICAL );
 
-	greetingText = new wxRichTextCtrl(this, wxID_ANY, wxT("Êàê èñïîëüçîâàòü: Íàæìèòå íà êíîïêó \"Ôàéë\" â âåðõíåì ëåâîì óãëó ýêðàíà."), wxDefaultPosition, wxSize(-1, -1), wxTE_READONLY | wxBORDER_SIMPLE | wxHSCROLL | wxVSCROLL | wxWANTS_CHARS);
-	greetingText->SetFont(wxFont(16, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Consolas")));
+	greetingText = new wxRichTextCtrl( this, wxID_ANY, wxT("ÐšÐ°Ðº Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÑŒ: ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ Ð½Ð° ÐºÐ½Ð¾Ð¿ÐºÑƒ \"Ð¤Ð°Ð¹Ð»\" Ð² Ð²ÐµÑ€Ñ…Ð½ÐµÐ¼ Ð»ÐµÐ²Ð¾Ð¼ ÑƒÐ³Ð»Ñƒ ÑÐºÑ€Ð°Ð½Ð°.\n\nÐž Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ðµ:\nÐ­Ñ‚Ð° Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð° ÑÐ¾Ð·Ð´Ð°Ð½Ð° Ð´Ð»Ñ ÑˆÐ¸Ñ„Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ Ñ„Ð°Ð¹Ð»Ð¾Ð² Ð»ÑŽÐ±Ð¾Ð³Ð¾ Ñ‚Ð¸Ð¿Ð°. Ð›ÑŽÐ±Ð¾Ð¹ Ñ„Ð°Ð¹Ð» Ð·Ð°ÑˆÐ¸Ñ„Ñ€Ð¾Ð²Ð°Ð½Ð½Ñ‹Ð¹ ÑÑ‚Ð¾Ð¹ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð¾Ð¹ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ñ€Ð°ÑÑˆÐ¸Ñ„Ñ€Ð¾Ð²Ð°Ð½ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ ÑÑ‚Ð¾Ð¹ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð¾Ð¹, Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÑ Ñ‚Ð¾Ñ‚ Ð¶Ðµ ÑÐ°Ð¼Ñ‹Ð¹ Ð¿Ð°Ñ€Ð¾Ð»ÑŒ ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¹ Ð²Ñ‹ Ð²Ð²ÐµÐ»Ð¸ Ð¿Ñ€Ð¸ ÑˆÐ¸Ñ„Ñ€Ð¾Ð²Ð°Ð½Ð¸Ð¸.\nÐ’Ð¾ÑÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ñ‚ÑŒ Ñ„Ð°Ð¹Ð»Ñ‹ Ð±ÐµÐ· ÑÑ‚Ð¾Ð³Ð¾ Ð¿Ð°Ñ€Ð¾Ð»Ñ Ð±ÑƒÐ´ÐµÑ‚ Ð½ÐµÐ²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾, Ð¿Ð¾ÑÑ‚Ð¾Ð¼Ñƒ ÐµÑÐ»Ð¸ Ð²Ñ‹ ÑƒÑ‚Ñ€Ð°Ñ‚Ð¸Ñ‚Ðµ Ð¿Ð°Ñ€Ð¾Ð»ÑŒ, Ñ‚Ð¾ Ð¿Ð¾Ñ‚ÐµÑ€ÑÐµÑ‚Ðµ Ð²Ð°ÑˆÐ¸ Ñ„Ð°Ð¹Ð»Ñ‹ Ð½Ð°Ð²ÑÐµÐ³Ð´Ð°, Ð¼Ð¾Ð¶ÐµÑ‚Ðµ ÑÑ‡Ð¸Ñ‚Ð°Ñ‚ÑŒ ÑÑ‚Ð¾ ÐºÐ°Ðº Ð¿Ð»ÑŽÑÐ¾Ð¼, Ñ‚Ð°Ðº Ð¸ Ð¼Ð¸Ð½ÑƒÑÐ¾Ð¼.\n\nÐ Ð°Ð·Ñ€Ð°Ð±Ð¾Ñ‚Ñ‡Ð¸Ðº:\nÐ­Ð»ÐµÐºÑ‚Ñ€Ð¾Ð½Ð½Ð°Ñ Ð¿Ð¾Ñ‡Ñ‚Ð°: shkafchik.game@gmail.com\nÐ˜ÑÑ…Ð¾Ð´Ð½Ñ‹Ð¹ ÐºÐ¾Ð´: https://github.com/martytyty2098/NoProblemCrypt\nÐÐºÐºÐ°ÑƒÐ½Ñ‚ Ð½Ð° Github: https://github.com/martytyty2098\n"), wxDefaultPosition, wxSize( -1,-1 ), wxTE_READONLY|wxBORDER_SIMPLE|wxHSCROLL|wxVSCROLL|wxWANTS_CHARS );
+	greetingText->SetFont( wxFont( 16, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Consolas") ) );
 
-	bSizerFrameMain->Add(greetingText, 1, wxALL | wxEXPAND, 5);
+	bSizerFrameMain->Add( greetingText, 1, wxALL|wxEXPAND, 5 );
 
-	panelMain = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+	panelMain = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	panelMain->Hide();
 
 	wxBoxSizer* bSizer5;
-	bSizer5 = new wxBoxSizer(wxVERTICAL);
+	bSizer5 = new wxBoxSizer( wxVERTICAL );
 
-	infoText = new wxStaticText(panelMain, wxID_ANY, wxT("Âû âûáðàëè 0 ôàéëîâ"), wxPoint(100, 200), wxSize(-1, -1), wxALIGN_CENTER_HORIZONTAL);
-	infoText->Wrap(-1);
-	infoText->SetFont(wxFont(14, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxT("Arial")));
+	infoText = new wxStaticText( panelMain, wxID_ANY, wxT("Ð’Ñ‹ Ð²Ñ‹Ð±Ñ€Ð°Ð»Ð¸ 0 Ñ„Ð°Ð¹Ð»Ð¾Ð²"), wxPoint( 100,200 ), wxSize( -1,-1 ), wxALIGN_CENTER_HORIZONTAL );
+	infoText->Wrap( -1 );
+	infoText->SetFont( wxFont( 14, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxT("Arial") ) );
 
-	bSizer5->Add(infoText, 0, wxALIGN_CENTER | wxTOP, 40);
+	bSizer5->Add( infoText, 0, wxALIGN_CENTER|wxTOP, 40 );
 
-	in_place_checkbox = new wxCheckBox(panelMain, wxID_ANY, wxT("Ïåðåïèñàòü íà ìåñòå"), wxDefaultPosition, wxSize(-1, -1), 0 | wxBORDER_THEME | wxWANTS_CHARS);
-	in_place_checkbox->SetFont(wxFont(16, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Consolas")));
-	in_place_checkbox->SetToolTip(wxT("Íå ðåêîìåíäîâàíî, åñëè âûáðàíî, ôàéëû áóäó ïåðåïèñàíû íà ìåñòå, èíà÷å áóäóò ñîçäàíû îòäåëüíî â âûáðàííîé íèæå ïàïêå"));
-	in_place_checkbox->SetHelpText(wxT("Íå ðåêîìåíäîâàíî, åñëè âûáðàíî, ôàéëû áóäó ïåðåïèñàíû íà ìåñòå, èíà÷å áóäóò ñîçäàíû îòäåëüíî â âûáðàííîé íèæå ïàïêå"));
+	in_place_checkbox = new wxCheckBox( panelMain, wxID_ANY, wxT("ÐŸÐµÑ€ÐµÐ¿Ð¸ÑÐ°Ñ‚ÑŒ Ð½Ð° Ð¼ÐµÑÑ‚Ðµ"), wxDefaultPosition, wxSize( -1,-1 ), 0|wxBORDER_THEME|wxWANTS_CHARS );
+	in_place_checkbox->SetFont( wxFont( 16, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Consolas") ) );
+	in_place_checkbox->SetToolTip( wxT("ÐÐµ Ñ€ÐµÐºÐ¾Ð¼ÐµÐ½Ð´Ð¾Ð²Ð°Ð½Ð¾, ÐµÑÐ»Ð¸ Ð²Ñ‹Ð±Ñ€Ð°Ð½Ð¾, Ñ„Ð°Ð¹Ð»Ñ‹ Ð±ÑƒÐ´Ñƒ Ð¿ÐµÑ€ÐµÐ¿Ð¸ÑÐ°Ð½Ñ‹ Ð½Ð° Ð¼ÐµÑÑ‚Ðµ, Ð¸Ð½Ð°Ñ‡Ðµ Ð±ÑƒÐ´ÑƒÑ‚ ÑÐ¾Ð·Ð´Ð°Ð½Ñ‹ Ð¾Ñ‚Ð´ÐµÐ»ÑŒÐ½Ð¾ Ð² Ð²Ñ‹Ð±Ñ€Ð°Ð½Ð½Ð¾Ð¹ Ð½Ð¸Ð¶Ðµ Ð¿Ð°Ð¿ÐºÐµ") );
+	in_place_checkbox->SetHelpText( wxT("ÐÐµ Ñ€ÐµÐºÐ¾Ð¼ÐµÐ½Ð´Ð¾Ð²Ð°Ð½Ð¾, ÐµÑÐ»Ð¸ Ð²Ñ‹Ð±Ñ€Ð°Ð½Ð¾, Ñ„Ð°Ð¹Ð»Ñ‹ Ð±ÑƒÐ´Ñƒ Ð¿ÐµÑ€ÐµÐ¿Ð¸ÑÐ°Ð½Ñ‹ Ð½Ð° Ð¼ÐµÑÑ‚Ðµ, Ð¸Ð½Ð°Ñ‡Ðµ Ð±ÑƒÐ´ÑƒÑ‚ ÑÐ¾Ð·Ð´Ð°Ð½Ñ‹ Ð¾Ñ‚Ð´ÐµÐ»ÑŒÐ½Ð¾ Ð² Ð²Ñ‹Ð±Ñ€Ð°Ð½Ð½Ð¾Ð¹ Ð½Ð¸Ð¶Ðµ Ð¿Ð°Ð¿ÐºÐµ") );
 
-	bSizer5->Add(in_place_checkbox, 0, wxALIGN_CENTER | wxTOP, 30);
+	bSizer5->Add( in_place_checkbox, 0, wxALIGN_CENTER|wxTOP, 30 );
 
-	dirPicker = new wxDirPickerCtrl(panelMain, wxID_ANY, wxT("Ãäå íîâûå ôàéëû áóäóò ñîçäàíû"), wxT("Âûáåðèòå ïàïêó"), wxDefaultPosition, wxSize(300, -1), wxDIRP_DIR_MUST_EXIST | wxDIRP_USE_TEXTCTRL);
-	dirPicker->SetFont(wxFont(12, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxT("Arial")));
+	dirPicker = new wxDirPickerCtrl( panelMain, wxID_ANY, wxT("Ð“Ð´Ðµ Ð½Ð¾Ð²Ñ‹Ðµ Ñ„Ð°Ð¹Ð»Ñ‹ Ð±ÑƒÐ´ÑƒÑ‚ ÑÐ¾Ð·Ð´Ð°Ð½Ñ‹"), wxT("Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð¿Ð°Ð¿ÐºÑƒ"), wxDefaultPosition, wxSize( 300,-1 ), wxDIRP_DIR_MUST_EXIST|wxDIRP_USE_TEXTCTRL );
+	dirPicker->SetFont( wxFont( 12, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxT("Arial") ) );
 
-	bSizer5->Add(dirPicker, 0, wxALIGN_CENTER | wxTOP, 14);
+	bSizer5->Add( dirPicker, 0, wxALIGN_CENTER|wxTOP, 14 );
 
-	mainButton = new wxButton(panelMain, wxID_ANY, wxT("Çàøèôðîâàòü"), wxDefaultPosition, wxSize(200, 45), 0);
+	mainButton = new wxButton( panelMain, wxID_ANY, wxT("Ð—Ð°ÑˆÐ¸Ñ„Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ"), wxDefaultPosition, wxSize( 200,45 ), 0 );
 
 	mainButton->SetDefault();
-	mainButton->SetFont(wxFont(18, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Consolas")));
+	mainButton->SetFont( wxFont( 18, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Consolas") ) );
 
-	bSizer5->Add(mainButton, 0, wxALIGN_CENTER | wxTOP, 30);
+	bSizer5->Add( mainButton, 0, wxALIGN_CENTER|wxTOP, 30 );
 
-	invalidDirInfo = new wxInfoBar(panelMain);
-	invalidDirInfo->SetShowHideEffects(wxSHOW_EFFECT_SLIDE_TO_RIGHT, wxSHOW_EFFECT_NONE);
-	invalidDirInfo->SetEffectDuration(500);
-	invalidDirInfo->SetFont(wxFont(16, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial")));
-	invalidDirInfo->SetForegroundColour(wxColour(255, 0, 0));
+	invalidDirInfo = new wxInfoBar( panelMain );
+	invalidDirInfo->SetShowHideEffects( wxSHOW_EFFECT_SLIDE_TO_RIGHT, wxSHOW_EFFECT_NONE );
+	invalidDirInfo->SetEffectDuration( 500 );
+	invalidDirInfo->SetFont( wxFont( 16, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial") ) );
+	invalidDirInfo->SetForegroundColour( wxColour( 255, 0, 0 ) );
 	invalidDirInfo->Hide();
 
-	bSizer5->Add(invalidDirInfo, 0, wxTOP, 25);
+	bSizer5->Add( invalidDirInfo, 0, wxTOP, 25 );
 
 
-	panelMain->SetSizer(bSizer5);
+	panelMain->SetSizer( bSizer5 );
 	panelMain->Layout();
-	bSizer5->Fit(panelMain);
-	bSizerFrameMain->Add(panelMain, 1, wxALL | wxEXPAND, 0);
+	bSizer5->Fit( panelMain );
+	bSizerFrameMain->Add( panelMain, 1, wxALL|wxEXPAND, 0 );
 
-	passwordPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+	passwordPanel = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	passwordPanel->Hide();
 
 	wxBoxSizer* passwordSizer;
-	passwordSizer = new wxBoxSizer(wxVERTICAL);
+	passwordSizer = new wxBoxSizer( wxVERTICAL );
 
-	passwordEnterText = new wxStaticText(passwordPanel, wxID_ANY, wxT("Òåïåðü âû äîëæíû ââåñòè ïàðîëü êîòîðûé íóæíî õðàíèòü â íàä¸æíîì ìåñòå, åñëè âû óòðàòèòå ñâîé ïàðîëü òî íå ñìîæåòå ðàñøèôðîâàòü ôàéëû îáðàòíî."), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER_HORIZONTAL);
-	passwordEnterText->Wrap(250);
-	passwordEnterText->SetFont(wxFont(14, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxT("Consolas")));
+	passwordEnterText = new wxStaticText( passwordPanel, wxID_ANY, wxT("Ð¢ÐµÐ¿ÐµÑ€ÑŒ Ð²Ñ‹ Ð´Ð¾Ð»Ð¶Ð½Ñ‹ Ð²Ð²ÐµÑÑ‚Ð¸ Ð¿Ð°Ñ€Ð¾Ð»ÑŒ ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¹ Ð½ÑƒÐ¶Ð½Ð¾ Ñ…Ñ€Ð°Ð½Ð¸Ñ‚ÑŒ Ð² Ð½Ð°Ð´Ñ‘Ð¶Ð½Ð¾Ð¼ Ð¼ÐµÑÑ‚Ðµ, ÐµÑÐ»Ð¸ Ð²Ñ‹ ÑƒÑ‚Ñ€Ð°Ñ‚Ð¸Ñ‚Ðµ ÑÐ²Ð¾Ð¹ Ð¿Ð°Ñ€Ð¾Ð»ÑŒ Ñ‚Ð¾ Ð½Ðµ ÑÐ¼Ð¾Ð¶ÐµÑ‚Ðµ Ñ€Ð°ÑÑˆÐ¸Ñ„Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ Ñ„Ð°Ð¹Ð»Ñ‹ Ð¾Ð±Ñ€Ð°Ñ‚Ð½Ð¾."), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER_HORIZONTAL );
+	passwordEnterText->Wrap( 250 );
+	passwordEnterText->SetFont( wxFont( 14, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxT("Consolas") ) );
 
-	passwordSizer->Add(passwordEnterText, 0, wxALIGN_CENTER_HORIZONTAL | wxTOP, 20);
+	passwordSizer->Add( passwordEnterText, 0, wxALIGN_CENTER_HORIZONTAL|wxTOP, 20 );
 
-	m_staticText4 = new wxStaticText(passwordPanel, wxID_ANY, wxT("Íàæìèòå TAB ÷òî áû ïîêàçàòü\\ñêðûòü"), wxDefaultPosition, wxDefaultSize, 0);
-	m_staticText4->Wrap(-1);
-	m_staticText4->SetFont(wxFont(10, wxFONTFAMILY_MODERN, wxFONTSTYLE_ITALIC, wxFONTWEIGHT_LIGHT, false, wxT("Cascadia Code Light")));
+	m_staticText4 = new wxStaticText( passwordPanel, wxID_ANY, wxT("ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ TAB Ñ‡Ñ‚Ð¾ Ð±Ñ‹ Ð¿Ð¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/ÑÐºÑ€Ñ‹Ñ‚ÑŒ"), wxDefaultPosition, wxDefaultSize, 0 );
+	m_staticText4->Wrap( -1 );
+	m_staticText4->SetFont( wxFont( 10, wxFONTFAMILY_MODERN, wxFONTSTYLE_ITALIC, wxFONTWEIGHT_LIGHT, false, wxT("Cascadia Code Light") ) );
 
-	passwordSizer->Add(m_staticText4, 0, wxALIGN_CENTER | wxTOP, 35);
+	passwordSizer->Add( m_staticText4, 0, wxALIGN_CENTER|wxTOP, 35 );
 
-	passwordTxtCtrl = new wxTextCtrl(passwordPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(200, 25), wxTE_CENTER | wxTE_NOHIDESEL | wxTE_PASSWORD | wxTE_PROCESS_TAB);
-	passwordTxtCtrl->SetFont(wxFont(12, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxT("System")));
+	passwordTxtCtrl = new wxTextCtrl( passwordPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 200,25 ), wxTE_CENTER|wxTE_NOHIDESEL|wxTE_PASSWORD|wxTE_PROCESS_TAB );
+	passwordTxtCtrl->SetFont( wxFont( 12, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxT("System") ) );
 
-	passwordSizer->Add(passwordTxtCtrl, 0, wxALIGN_CENTER | wxTOP, 5);
+	passwordSizer->Add( passwordTxtCtrl, 0, wxALIGN_CENTER|wxTOP, 5 );
 
-	passwordTxtCtrlVisible = new wxTextCtrl(passwordPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize(200, 25), wxTE_CENTER | wxTE_NOHIDESEL | wxTE_PROCESS_TAB);
-	passwordTxtCtrlVisible->SetFont(wxFont(12, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxT("System")));
+	passwordTxtCtrlVisible = new wxTextCtrl( passwordPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxSize( 200,25 ), wxTE_CENTER|wxTE_NOHIDESEL|wxTE_PROCESS_TAB );
+	passwordTxtCtrlVisible->SetFont( wxFont( 12, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxT("System") ) );
 	passwordTxtCtrlVisible->Hide();
 
-	passwordSizer->Add(passwordTxtCtrlVisible, 0, wxALIGN_CENTER | wxTOP, 5);
+	passwordSizer->Add( passwordTxtCtrlVisible, 0, wxALIGN_CENTER|wxTOP, 5 );
 
 	m_sdbSizer1 = new wxStdDialogButtonSizer();
-	m_sdbSizer1OK = new wxButton(passwordPanel, wxID_OK);
-	m_sdbSizer1->AddButton(m_sdbSizer1OK);
-	m_sdbSizer1Cancel = new wxButton(passwordPanel, wxID_CANCEL);
-	m_sdbSizer1->AddButton(m_sdbSizer1Cancel);
+	m_sdbSizer1OK = new wxButton( passwordPanel, wxID_OK );
+	m_sdbSizer1->AddButton( m_sdbSizer1OK );
+	m_sdbSizer1Cancel = new wxButton( passwordPanel, wxID_CANCEL );
+	m_sdbSizer1->AddButton( m_sdbSizer1Cancel );
 	m_sdbSizer1->Realize();
 
-	passwordSizer->Add(m_sdbSizer1, 0, wxALIGN_CENTER | wxTOP, 10);
+	passwordSizer->Add( m_sdbSizer1, 0, wxALIGN_CENTER|wxTOP, 10 );
 
 
-	passwordPanel->SetSizer(passwordSizer);
+	passwordPanel->SetSizer( passwordSizer );
 	passwordPanel->Layout();
-	passwordSizer->Fit(passwordPanel);
-	bSizerFrameMain->Add(passwordPanel, 1, wxEXPAND | wxALL, 5);
+	passwordSizer->Fit( passwordPanel );
+	bSizerFrameMain->Add( passwordPanel, 1, wxEXPAND | wxALL, 5 );
 
-	confirmationPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+	confirmationPanel = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	confirmationPanel->Hide();
 
 	wxBoxSizer* bSizer4;
-	bSizer4 = new wxBoxSizer(wxVERTICAL);
+	bSizer4 = new wxBoxSizer( wxVERTICAL );
 
-	confirmationInfo = new wxRichTextCtrl(confirmationPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 | wxVSCROLL | wxHSCROLL | wxNO_BORDER | wxWANTS_CHARS);
-	confirmationInfo->SetFont(wxFont(14, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Consolas")));
-	confirmationInfo->SetMaxSize(wxSize(-1, 240));
+	confirmationInfo = new wxRichTextCtrl( confirmationPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0|wxVSCROLL|wxHSCROLL|wxNO_BORDER|wxWANTS_CHARS );
+	confirmationInfo->SetFont( wxFont( 14, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Consolas") ) );
+	confirmationInfo->SetMaxSize( wxSize( -1,240 ) );
 
-	bSizer4->Add(confirmationInfo, 1, wxEXPAND, 5);
+	bSizer4->Add( confirmationInfo, 1, wxEXPAND, 5 );
 
-	licenseLink = new wxHyperlinkCtrl(confirmationPanel, wxID_ANY, wxT("Âû ñîãëàñíû ñ ýòèì?"), wxT("https://github.com/martytyty2098/NoProblemCrypt/blob/main/LICENSE"), wxDefaultPosition, wxDefaultSize, wxHL_DEFAULT_STYLE);
-	licenseLink->SetFont(wxFont(14, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxT("Arial")));
+	licenseLink = new wxHyperlinkCtrl( confirmationPanel, wxID_ANY, wxT("Ð’Ñ‹ ÑÐ¾Ð³Ð»Ð°ÑÐ½Ñ‹ Ñ ÑÑ‚Ð¸Ð¼?"), wxT("https://github.com/martytyty2098/NoProblemCrypt/blob/main/LICENSE"), wxDefaultPosition, wxDefaultSize, wxHL_DEFAULT_STYLE );
+	licenseLink->SetFont( wxFont( 14, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxT("Arial") ) );
 
-	bSizer4->Add(licenseLink, 0, wxALIGN_CENTER | wxTOP, 20);
+	bSizer4->Add( licenseLink, 0, wxALIGN_CENTER|wxTOP, 20 );
 
 	licenseConfirmation = new wxStdDialogButtonSizer();
-	licenseConfirmationYes = new wxButton(confirmationPanel, wxID_YES);
-	licenseConfirmation->AddButton(licenseConfirmationYes);
-	licenseConfirmationNo = new wxButton(confirmationPanel, wxID_NO);
-	licenseConfirmation->AddButton(licenseConfirmationNo);
+	licenseConfirmationYes = new wxButton( confirmationPanel, wxID_YES );
+	licenseConfirmation->AddButton( licenseConfirmationYes );
+	licenseConfirmationNo = new wxButton( confirmationPanel, wxID_NO );
+	licenseConfirmation->AddButton( licenseConfirmationNo );
 	licenseConfirmation->Realize();
 
-	bSizer4->Add(licenseConfirmation, 0, wxALIGN_CENTER | wxTOP, 15);
+	bSizer4->Add( licenseConfirmation, 0, wxALIGN_CENTER|wxTOP, 15 );
 
 
-	confirmationPanel->SetSizer(bSizer4);
+	confirmationPanel->SetSizer( bSizer4 );
 	confirmationPanel->Layout();
-	bSizer4->Fit(confirmationPanel);
-	bSizerFrameMain->Add(confirmationPanel, 1, wxEXPAND | wxALL, 5);
+	bSizer4->Fit( confirmationPanel );
+	bSizerFrameMain->Add( confirmationPanel, 1, wxEXPAND | wxALL, 5 );
 
-	processingPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+	processingPanel = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	processingPanel->Hide();
 
 	wxBoxSizer* bSizer51;
-	bSizer51 = new wxBoxSizer(wxVERTICAL);
+	bSizer51 = new wxBoxSizer( wxVERTICAL );
 
-	progressState = new wxStaticText(processingPanel, wxID_ANY, wxT("Ïðîâåðêà ôàéëîâ..."), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER_HORIZONTAL);
-	progressState->Wrap(-1);
-	progressState->SetFont(wxFont(10, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial")));
+	progressState = new wxStaticText( processingPanel, wxID_ANY, wxT("ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ñ„Ð°Ð¹Ð»Ð¾Ð²..."), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER_HORIZONTAL );
+	progressState->Wrap( -1 );
+	progressState->SetFont( wxFont( 10, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Arial") ) );
 
-	bSizer51->Add(progressState, 0, wxALIGN_CENTER | wxTOP, 100);
+	bSizer51->Add( progressState, 0, wxALIGN_CENTER|wxTOP, 100 );
 
-	singleProgressGauge = new wxGauge(processingPanel, wxID_ANY, 100, wxDefaultPosition, wxSize(300, 30), wxGA_HORIZONTAL);
-	singleProgressGauge->SetValue(0);
-	bSizer51->Add(singleProgressGauge, 0, wxALIGN_CENTER | wxTOP, 20);
+	singleProgressGauge = new wxGauge( processingPanel, wxID_ANY, 100, wxDefaultPosition, wxSize( 300,30 ), wxGA_HORIZONTAL );
+	singleProgressGauge->SetValue( 0 );
+	bSizer51->Add( singleProgressGauge, 0, wxALIGN_CENTER|wxTOP, 20 );
 
-	totalProgressGauge = new wxGauge(processingPanel, wxID_ANY, 100, wxDefaultPosition, wxSize(300, 30), wxGA_HORIZONTAL);
-	totalProgressGauge->SetValue(0);
-	bSizer51->Add(totalProgressGauge, 0, wxALIGN_CENTER | wxTOP, 20);
+	totalProgressGauge = new wxGauge( processingPanel, wxID_ANY, 100, wxDefaultPosition, wxSize( 300,30 ), wxGA_HORIZONTAL );
+	totalProgressGauge->SetValue( 0 );
+	bSizer51->Add( totalProgressGauge, 0, wxALIGN_CENTER|wxTOP, 20 );
 
-	filesAmountText = new wxStaticText(processingPanel, wxID_ANY, wxT("0 ôàéëîâ èç 0"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER_HORIZONTAL);
-	filesAmountText->Wrap(-1);
-	filesAmountText->SetFont(wxFont(14, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Consolas")));
+	filesAmountText = new wxStaticText( processingPanel, wxID_ANY, wxT("0 Ñ„Ð°Ð¹Ð»Ð¾Ð² Ð¸Ð· 0"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER_HORIZONTAL );
+	filesAmountText->Wrap( -1 );
+	filesAmountText->SetFont( wxFont( 14, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Consolas") ) );
 
-	bSizer51->Add(filesAmountText, 0, wxALIGN_CENTER | wxTOP, 20);
+	bSizer51->Add( filesAmountText, 0, wxALIGN_CENTER|wxTOP, 20 );
 
 
-	processingPanel->SetSizer(bSizer51);
+	processingPanel->SetSizer( bSizer51 );
 	processingPanel->Layout();
-	bSizer51->Fit(processingPanel);
-	bSizerFrameMain->Add(processingPanel, 1, wxEXPAND | wxALL, 5);
+	bSizer51->Fit( processingPanel );
+	bSizerFrameMain->Add( processingPanel, 1, wxEXPAND | wxALL, 5 );
 
-	endPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL);
+	endPanel = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
 	endPanel->Hide();
 
 	wxBoxSizer* bSizer6;
-	bSizer6 = new wxBoxSizer(wxVERTICAL);
+	bSizer6 = new wxBoxSizer( wxVERTICAL );
 
-	endText = new wxRichTextCtrl(endPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY | wxVSCROLL | wxHSCROLL | wxNO_BORDER | wxWANTS_CHARS);
-	endText->SetFont(wxFont(14, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Consolas")));
+	endText = new wxRichTextCtrl( endPanel, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY|wxVSCROLL|wxHSCROLL|wxNO_BORDER|wxWANTS_CHARS );
+	endText->SetFont( wxFont( 14, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Consolas") ) );
 
-	bSizer6->Add(endText, 1, wxEXPAND | wxALL, 0);
+	bSizer6->Add( endText, 1, wxEXPAND | wxALL, 0 );
 
 
-	endPanel->SetSizer(bSizer6);
+	endPanel->SetSizer( bSizer6 );
 	endPanel->Layout();
-	bSizer6->Fit(endPanel);
-	bSizerFrameMain->Add(endPanel, 1, wxEXPAND | wxALL, 5);
+	bSizer6->Fit( endPanel );
+	bSizerFrameMain->Add( endPanel, 1, wxEXPAND | wxALL, 5 );
 
 
-	this->SetSizer(bSizerFrameMain);
+	this->SetSizer( bSizerFrameMain );
 	this->Layout();
-	m_statusBar2 = this->CreateStatusBar(1, wxSTB_SIZEGRIP, wxID_ANY);
-	menubarMain = new wxMenuBar(0);
+	m_statusBar2 = this->CreateStatusBar( 1, wxSTB_SIZEGRIP, wxID_ANY );
+	menubarMain = new wxMenuBar( 0 );
 	menuFile = new wxMenu();
 	wxMenuItem* menuEncryptFiles;
-	menuEncryptFiles = new wxMenuItem(menuFile, EncryptFileID, wxString(wxT("Çàøèôðîâàòü ôàéëû")) + wxT('\t') + wxT("F1"), wxT("Óêàæèòå íà íåñêîëüêî ôàéëîâ"), wxITEM_NORMAL);
-	menuFile->Append(menuEncryptFiles);
+	menuEncryptFiles = new wxMenuItem( menuFile, EncryptFileID, wxString( wxT("Ð—Ð°ÑˆÐ¸Ñ„Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ Ñ„Ð°Ð¹Ð»Ñ‹") ) + wxT('\t') + wxT("F1"), wxT("Ð£ÐºÐ°Ð¶Ð¸Ñ‚Ðµ Ð½Ð° Ð½ÐµÑÐºÐ¾Ð»ÑŒÐºÐ¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²"), wxITEM_NORMAL );
+	menuFile->Append( menuEncryptFiles );
 
 	wxMenuItem* menuDecryptFiles;
-	menuDecryptFiles = new wxMenuItem(menuFile, DecryptFileID, wxString(wxT("Ðàñøèôðîâàòü ôàéëû")) + wxT('\t') + wxT("F2"), wxT("Óêàæèòå íà íåñêîëüêî ôàéëîâ"), wxITEM_NORMAL);
-	menuFile->Append(menuDecryptFiles);
+	menuDecryptFiles = new wxMenuItem( menuFile, DecryptFileID, wxString( wxT("Ð Ð°ÑÑˆÐ¸Ñ„Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ Ñ„Ð°Ð¹Ð»Ñ‹") ) + wxT('\t') + wxT("F2"), wxT("Ð£ÐºÐ°Ð¶Ð¸Ñ‚Ðµ Ð½Ð° Ð½ÐµÑÐºÐ¾Ð»ÑŒÐºÐ¾ Ñ„Ð°Ð¹Ð»Ð¾Ð²"), wxITEM_NORMAL );
+	menuFile->Append( menuDecryptFiles );
 
 	menuFile->AppendSeparator();
 
 	wxMenuItem* menuEncryptFolder;
-	menuEncryptFolder = new wxMenuItem(menuFile, EncryptFolderID, wxString(wxT("Çàøèôðîâàòü ïàïêó")) + wxT('\t') + wxT("SHIFT+F1"), wxT("Óêàæèòå íà ïàïêó"), wxITEM_NORMAL);
-	menuFile->Append(menuEncryptFolder);
+	menuEncryptFolder = new wxMenuItem( menuFile, EncryptFolderID, wxString( wxT("Ð—Ð°ÑˆÐ¸Ñ„Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ Ð¿Ð°Ð¿ÐºÑƒ") ) + wxT('\t') + wxT("SHIFT+F1"), wxT("Ð£ÐºÐ°Ð¶Ð¸Ñ‚Ðµ Ð½Ð° Ð¿Ð°Ð¿ÐºÑƒ"), wxITEM_NORMAL );
+	menuFile->Append( menuEncryptFolder );
 
 	wxMenuItem* menuDecryptFolder;
-	menuDecryptFolder = new wxMenuItem(menuFile, DecryptFolderID, wxString(wxT("Ðàñøèôðîâàòü ïàïêó")) + wxT('\t') + wxT("SHIFT+F2"), wxT("Óêàæèòå íà ïàïêó"), wxITEM_NORMAL);
-	menuFile->Append(menuDecryptFolder);
+	menuDecryptFolder = new wxMenuItem( menuFile, DecryptFolderID, wxString( wxT("Ð Ð°ÑÑˆÐ¸Ñ„Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ Ð¿Ð°Ð¿ÐºÑƒ") ) + wxT('\t') + wxT("SHIFT+F2"), wxT("Ð£ÐºÐ°Ð¶Ð¸Ñ‚Ðµ Ð½Ð° Ð¿Ð°Ð¿ÐºÑƒ"), wxITEM_NORMAL );
+	menuFile->Append( menuDecryptFolder );
 
-	menubarMain->Append(menuFile, wxT("Ôàéë"));
+	menubarMain->Append( menuFile, wxT("Ð¤Ð°Ð¹Ð»") );
 
-	this->SetMenuBar(menubarMain);
+	this->SetMenuBar( menubarMain );
 
 
-	this->Centre(wxBOTH);
+	this->Centre( wxBOTH );
 
 	// Connect Events
-	in_place_checkbox->Connect(wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler(frameMain::InPlaceChange), NULL, this);
-	mainButton->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(frameMain::MainButtonOnClick), NULL, this);
-	passwordTxtCtrl->Connect(wxEVT_CHAR, wxKeyEventHandler(frameMain::OnTabPressed), NULL, this);
-	passwordTxtCtrlVisible->Connect(wxEVT_CHAR, wxKeyEventHandler(frameMain::OnTabPressed), NULL, this);
-	m_sdbSizer1Cancel->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(frameMain::FromPasswordToMenu), NULL, this);
-	m_sdbSizer1OK->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(frameMain::OnPasswordSubmit), NULL, this);
-	licenseConfirmationYes->Connect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(frameMain::FromConfirmToProcess), NULL, this);
-	menuFile->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(frameMain::ShowMenu), this, menuEncryptFiles->GetId());
-	menuFile->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(frameMain::ShowMenu), this, menuDecryptFiles->GetId());
-	menuFile->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(frameMain::ShowMenu), this, menuEncryptFolder->GetId());
-	menuFile->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(frameMain::ShowMenu), this, menuDecryptFolder->GetId());
+	in_place_checkbox->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( frameMain::InPlaceChange ), NULL, this );
+	mainButton->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( frameMain::MainButtonOnClick ), NULL, this );
+	passwordTxtCtrl->Connect( wxEVT_CHAR, wxKeyEventHandler( frameMain::OnTabPressed ), NULL, this );
+	passwordTxtCtrlVisible->Connect( wxEVT_CHAR, wxKeyEventHandler( frameMain::OnTabPressed ), NULL, this );
+	m_sdbSizer1Cancel->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( frameMain::FromPasswordToMenu ), NULL, this );
+	m_sdbSizer1OK->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( frameMain::OnPasswordSubmit ), NULL, this );
+	licenseConfirmationYes->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( frameMain::FromConfirmToProcess ), NULL, this );
+	menuFile->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( frameMain::ShowMenu ), this, menuEncryptFiles->GetId());
+	menuFile->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( frameMain::ShowMenu ), this, menuDecryptFiles->GetId());
+	menuFile->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( frameMain::ShowMenu ), this, menuEncryptFolder->GetId());
+	menuFile->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( frameMain::ShowMenu ), this, menuDecryptFolder->GetId());
 }
 
 frameMain::~frameMain()
 {
 	// Disconnect Events
-	in_place_checkbox->Disconnect(wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler(frameMain::InPlaceChange), NULL, this);
-	mainButton->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(frameMain::MainButtonOnClick), NULL, this);
-	passwordTxtCtrl->Disconnect(wxEVT_CHAR, wxKeyEventHandler(frameMain::OnTabPressed), NULL, this);
-	passwordTxtCtrlVisible->Disconnect(wxEVT_CHAR, wxKeyEventHandler(frameMain::OnTabPressed), NULL, this);
-	m_sdbSizer1Cancel->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(frameMain::FromPasswordToMenu), NULL, this);
-	m_sdbSizer1OK->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(frameMain::OnPasswordSubmit), NULL, this);
-	licenseConfirmationYes->Disconnect(wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(frameMain::FromConfirmToProcess), NULL, this);
+	in_place_checkbox->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( frameMain::InPlaceChange ), NULL, this );
+	mainButton->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( frameMain::MainButtonOnClick ), NULL, this );
+	passwordTxtCtrl->Disconnect( wxEVT_CHAR, wxKeyEventHandler( frameMain::OnTabPressed ), NULL, this );
+	passwordTxtCtrlVisible->Disconnect( wxEVT_CHAR, wxKeyEventHandler( frameMain::OnTabPressed ), NULL, this );
+	m_sdbSizer1Cancel->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( frameMain::FromPasswordToMenu ), NULL, this );
+	m_sdbSizer1OK->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( frameMain::OnPasswordSubmit ), NULL, this );
+	licenseConfirmationYes->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( frameMain::FromConfirmToProcess ), NULL, this );
 
 }

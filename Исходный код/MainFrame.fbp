@@ -8,8 +8,8 @@
     <property name="disconnect_mode">source_name</property>
     <property name="disconnect_php_events">0</property>
     <property name="disconnect_python_events">0</property>
-    <property name="embedded_files_path">res</property>
-    <property name="encoding">ANSI</property>
+    <property name="embedded_files_path">C:\Users\Martin\Desktop\NoProblemCryptRUS\Исходный код</property>
+    <property name="encoding">UTF-8</property>
     <property name="event_generation">connect</property>
     <property name="file">mna</property>
     <property name="first_id">1000</property>
@@ -19,7 +19,7 @@
     <property name="internationalize">0</property>
     <property name="name">MainFrame</property>
     <property name="namespace"></property>
-    <property name="path">C:\Users\Martin\Desktop\wxFormsProject\oc</property>
+    <property name="path">C:\Users\Martin\Desktop\NoProblemCryptRUS\Исходный код</property>
     <property name="precompiled_header"></property>
     <property name="relative_path">1</property>
     <property name="skip_lua_events">1</property>
@@ -121,13 +121,13 @@
             <property name="validator_style">wxFILTER_NONE</property>
             <property name="validator_type">wxDefaultValidator</property>
             <property name="validator_variable"></property>
-            <property name="value">Как использовать: Нажмите на кнопку &quot;Файл&quot; в верхнем левом углу экрана.</property>
+            <property name="value">Как использовать: Нажмите на кнопку &quot;Файл&quot; в верхнем левом углу экрана.&#x0A;&#x0A;О программе:&#x0A;Эта программа создана для шифрования файлов любого типа. Любой файл зашифрованный этой программой может быть расшифрован только этой программой, используя тот же самый пароль который вы ввели при шифровании.&#x0A;Восстановить файлы без этого пароля будет невозможно, поэтому если вы утратите пароль, то потеряете ваши файлы навсегда, можете считать это как плюсом, так и минусом.&#x0A;&#x0A;Разработчик:&#x0A;Электронная почта: shkafchik.game@gmail.com&#x0A;Исходный код: https://github.com/martytyty2098/NoProblemCrypt&#x0A;Аккаунт на Github: https://github.com/martytyty2098&#x0A;</property>
             <property name="window_extra_style"></property>
             <property name="window_name"></property>
             <property name="window_style">wxBORDER_SIMPLE|wxHSCROLL|wxVSCROLL|wxWANTS_CHARS</property>
           </object>
         </object>
-        <object class="sizeritem" expanded="true">
+        <object class="sizeritem" expanded="false">
           <property name="border">0</property>
           <property name="flag">wxALL|wxEXPAND</property>
           <property name="proportion">1</property>
@@ -520,11 +520,11 @@
             </object>
           </object>
         </object>
-        <object class="sizeritem" expanded="true">
+        <object class="sizeritem" expanded="false">
           <property name="border">5</property>
           <property name="flag">wxEXPAND | wxALL</property>
           <property name="proportion">1</property>
-          <object class="wxPanel" expanded="true">
+          <object class="wxPanel" expanded="false">
             <property name="BottomDockable">1</property>
             <property name="LeftDockable">1</property>
             <property name="RightDockable">1</property>
@@ -576,7 +576,7 @@
             <property name="window_extra_style"></property>
             <property name="window_name"></property>
             <property name="window_style">wxTAB_TRAVERSAL</property>
-            <object class="wxBoxSizer" expanded="true">
+            <object class="wxBoxSizer" expanded="false">
               <property name="minimum_size"></property>
               <property name="name">passwordSizer</property>
               <property name="orient">wxVERTICAL</property>
@@ -860,7 +860,7 @@
             </object>
           </object>
         </object>
-        <object class="sizeritem" expanded="true">
+        <object class="sizeritem" expanded="false">
           <property name="border">5</property>
           <property name="flag">wxEXPAND | wxALL</property>
           <property name="proportion">1</property>
@@ -1071,7 +1071,7 @@
             </object>
           </object>
         </object>
-        <object class="sizeritem" expanded="true">
+        <object class="sizeritem" expanded="false">
           <property name="border">5</property>
           <property name="flag">wxEXPAND | wxALL</property>
           <property name="proportion">1</property>
@@ -1389,7 +1389,7 @@
             </object>
           </object>
         </object>
-        <object class="sizeritem" expanded="true">
+        <object class="sizeritem" expanded="false">
           <property name="border">5</property>
           <property name="flag">wxEXPAND | wxALL</property>
           <property name="proportion">1</property>
@@ -1542,7 +1542,7 @@
         <property name="window_name"></property>
         <property name="window_style"></property>
       </object>
-      <object class="wxMenuBar" expanded="true">
+      <object class="wxMenuBar" expanded="false">
         <property name="bg"></property>
         <property name="context_help"></property>
         <property name="context_menu">1</property>
