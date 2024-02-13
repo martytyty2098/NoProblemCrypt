@@ -1,10 +1,10 @@
 #include "launch.h"
+#include "key_icon.xpm"
 
 wxDEFINE_EVENT(MESSAGE_FROM_THREAD, wxCommandEvent);
 
 bool MyApp::OnInit()
 {
-    setlocale(LC_ALL, "C.UTF-8");
     mainFrame = new MainFrame();
     mainFrame->Show(true);
     return true;
@@ -18,10 +18,12 @@ void MyApp::ShowErrorMsg(const wxString& msg, const wxString& caption)
 }
 
 MainFrame::MainFrame()
-    : frameMain(nullptr, wxID_ANY, wxT("NoProblemCrypt")),
+    : frameMain(nullptr, wxID_ANY),
     operatingMode(MainFrame::Mode::NONE)
 {
+    SetIcon(wxIcon(key_icon));
     in_place = in_place_checkbox->IsChecked();
+    greetingText->ApplyAlignmentToSelection(wxTEXT_ALIGNMENT_CENTER);
 }
 
 void MainFrame::ShowMenu(wxCommandEvent& event)
@@ -81,6 +83,9 @@ void MainFrame::ShowMenu(wxCommandEvent& event)
         }
     }
 
+    if (currPanel) {
+        currPanel->Hide();
+    }
     greetingText->Hide();
     panelMain->Show();
     panelMain->GetContainingSizer()->Layout();
@@ -215,9 +220,12 @@ void MainFrame::FromPasswordToMenu(wxCommandEvent& event)
     password.Clear();
     passwordTxtCtrl->SetValue("");
     passwordTxtCtrlVisible->SetValue("");
+    passwordEnterText->SetLabel(wxT("Now you must enter the password\nthat is used or will be used for BOTH\nencryption AND decryption."));
+    passwordEnterText->Wrap(300);
+    passwordEnterText->GetContainingSizer()->Layout();
+    passwordEnterText->Wrap(300);
     passwordPanel->Hide();
     panelMain->Show();
-    passwordEnterText->SetLabel(wxT("Now you must enter the password\nthat is used or will be used for BOTH\nencryption AND decryption."));
     panelMain->GetContainingSizer()->Layout();
 }
 
@@ -259,6 +267,28 @@ void MainFrame::FromConfirmToProcess(wxCommandEvent& event)
 
     std::thread work_horse(ProcessAllFilesW);
     work_horse.detach();
+}
+
+void MainFrame::ShowAbout(wxCommandEvent& event)
+{
+    if (currStage != MainFrame::Greeting) return;
+    if (currPanel) currPanel->Hide();
+    else greetingText->Hide();
+    switch (event.GetId()) {
+    case ABOUT_DEV:
+        currPanel = devPanel;
+        break;
+    case ABOUT_ALG:
+        currPanel = algPanel;
+        break;
+    case ABOUT_PROGRAM:
+        currPanel = aboutPanel;
+        break;
+    default:
+        return;
+    }
+    currPanel->Show();
+    currPanel->GetContainingSizer()->Layout();
 }
 
 void MainFrame::FromPasswordToConfirmation()
@@ -318,7 +348,7 @@ void MainFrame::CheckAllFiles()
 
 void MainFrame::ProcessAllFiles()
 {
-    for (size_t i = 0; i < userDirs.GetCount(); ++i)
+    for (size_t i = 0; i < userDirs.GetCount() && !in_place; ++i)
     {
         std::filesystem::path relative = std::filesystem::relative(userDirs[i].fn_str(), sourceDir);
         std::filesystem::path toCreate = std::filesystem::path(creationDir.fn_str()) / relative;

@@ -16,8 +16,8 @@ frameMain::frameMain( wxWindow* parent, wxWindowID id, const wxString& title, co
 	wxBoxSizer* bSizerFrameMain;
 	bSizerFrameMain = new wxBoxSizer( wxVERTICAL );
 
-	greetingText = new wxRichTextCtrl( this, wxID_ANY, _("How to use:\nClick on \"File\" button in the top-left corner of the screen.\n\nAbout:\nThis software is made for encrypting and decrypting your files of any type. Any files that were encrypted by this program can be decrypted only with this program using the exact same password that you inserted before encryption.\nIt is impossible to restore your files without that password, so if you lose it, all your encrypted files will be rendered useless forever, you can consider it both a pro and a con.\n\nDeveloper:\nEmail: shkafchik.game@gmail.com\nSource code: https://github.com/martytyty2098/NoProblemCrypt\nGithub account: https://github.com/martytyty2098"), wxDefaultPosition, wxSize( -1,-1 ), wxTE_AUTO_URL|wxTE_READONLY|wxBORDER_SIMPLE|wxHSCROLL|wxVSCROLL|wxWANTS_CHARS );
-	greetingText->SetFont( wxFont( 16, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Consolas") ) );
+	greetingText = new wxRichTextCtrl( this, wxID_ANY, _("How to use:\nClick on \"File\" button in the top-left corner of the screen.\nUsing this program, just like any file, you can completely encrypt a removable storage medium, such as a USB flash drive or a physical hard drive. To do this, just select \"Encrypt folder\"."), wxDefaultPosition, wxSize( -1,-1 ), wxTE_READONLY|wxBORDER_SIMPLE|wxHSCROLL|wxVSCROLL|wxWANTS_CHARS );
+	greetingText->SetFont( wxFont( 16, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Constantia") ) );
 
 	bSizerFrameMain->Add( greetingText, 1, wxALL|wxEXPAND, 5 );
 
@@ -192,6 +192,57 @@ frameMain::frameMain( wxWindow* parent, wxWindowID id, const wxString& title, co
 	bSizer6->Fit( endPanel );
 	bSizerFrameMain->Add( endPanel, 1, wxEXPAND | wxALL, 5 );
 
+	devPanel = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	devPanel->Hide();
+
+	wxBoxSizer* bSizer7;
+	bSizer7 = new wxBoxSizer( wxVERTICAL );
+
+	m_richText4 = new wxRichTextCtrl( devPanel, wxID_ANY, _("Email: \nshkafchik.game@gmail.com\n\nSource code: https://github.com/martytyty2098/NoProblemCrypt\n\nDonations: \nBTC: 12xj878Ynwp7wRomw3fCqAehMxx8DcFQw5\nToncoin (TON): UQDkTwofgbl-f1F1sQWwhuo1yEVzro0AnXMeYQ2Gc5PHbyls\nUSDT TRC20: TNyPMHqUyPM4zz7jvwjBNb8qbLjnwU15jv"), wxDefaultPosition, wxDefaultSize, 0|wxVSCROLL|wxHSCROLL|wxNO_BORDER|wxWANTS_CHARS );
+	m_richText4->SetFont( wxFont( 16, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Calibri") ) );
+
+	bSizer7->Add( m_richText4, 1, wxEXPAND | wxALL, 5 );
+
+
+	devPanel->SetSizer( bSizer7 );
+	devPanel->Layout();
+	bSizer7->Fit( devPanel );
+	bSizerFrameMain->Add( devPanel, 1, wxEXPAND | wxALL, 0 );
+
+	algPanel = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	algPanel->Hide();
+
+	wxBoxSizer* bSizer8;
+	bSizer8 = new wxBoxSizer( wxVERTICAL );
+
+	m_richText5 = new wxRichTextCtrl( algPanel, wxID_ANY, _("This program uses a proprietary byte-by-byte encryption method which ensures that your files can only be decrypted by this program using the same password you entered, however, the key used to encrypt the file is not stored in the file itself.\nFile metadata (except names) are also encrypted.\nNot a single file encrypted using NoProblemCrypt can be identified, it cannot be distinguished from a set of random data, that is, the file cannot be associated with NoProblemCrypt as the program that created it, in any form or framework."), wxDefaultPosition, wxDefaultSize, 0|wxVSCROLL|wxHSCROLL|wxNO_BORDER|wxWANTS_CHARS );
+	m_richText5->SetFont( wxFont( 16, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Constantia") ) );
+
+	bSizer8->Add( m_richText5, 1, wxEXPAND | wxALL, 5 );
+
+
+	algPanel->SetSizer( bSizer8 );
+	algPanel->Layout();
+	bSizer8->Fit( algPanel );
+	bSizerFrameMain->Add( algPanel, 1, wxEXPAND | wxALL, 0 );
+
+	aboutPanel = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	aboutPanel->Hide();
+
+	wxBoxSizer* bSizer9;
+	bSizer9 = new wxBoxSizer( wxVERTICAL );
+
+	m_richText6 = new wxRichTextCtrl( aboutPanel, wxID_ANY, _("This software is made for encrypting and decrypting your files of any type. Any files that were encrypted by this program can be decrypted only with this program using the exact same password that you inserted before encryption.\nIt is impossible to restore your files without that password, so if you lose it, all your encrypted files will be rendered useless forever, you can consider it both a pro and a con."), wxDefaultPosition, wxDefaultSize, 0|wxVSCROLL|wxHSCROLL|wxNO_BORDER|wxWANTS_CHARS );
+	m_richText6->SetFont( wxFont( 16, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Constantia") ) );
+
+	bSizer9->Add( m_richText6, 1, wxEXPAND | wxALL, 5 );
+
+
+	aboutPanel->SetSizer( bSizer9 );
+	aboutPanel->Layout();
+	bSizer9->Fit( aboutPanel );
+	bSizerFrameMain->Add( aboutPanel, 1, wxEXPAND | wxALL, 0 );
+
 
 	this->SetSizer( bSizerFrameMain );
 	this->Layout();
@@ -218,6 +269,21 @@ frameMain::frameMain( wxWindow* parent, wxWindowID id, const wxString& title, co
 
 	menubarMain->Append( menuFile, _("File") );
 
+	menuAbout = new wxMenu();
+	wxMenuItem* devAbout;
+	devAbout = new wxMenuItem( menuAbout, ABOUT_DEV, wxString( _("Developer") ) , _("About the developer of this program"), wxITEM_NORMAL );
+	menuAbout->Append( devAbout );
+
+	wxMenuItem* algAbout;
+	algAbout = new wxMenuItem( menuAbout, ABOUT_ALG, wxString( _("Encryption method") ) , _("Encryption method this program uses"), wxITEM_NORMAL );
+	menuAbout->Append( algAbout );
+
+	wxMenuItem* programAbout;
+	programAbout = new wxMenuItem( menuAbout, ABOUT_PROGRAM, wxString( _("Program") ) , _("About this program"), wxITEM_NORMAL );
+	menuAbout->Append( programAbout );
+
+	menubarMain->Append( menuAbout, _("About") );
+
 	this->SetMenuBar( menubarMain );
 
 
@@ -235,6 +301,9 @@ frameMain::frameMain( wxWindow* parent, wxWindowID id, const wxString& title, co
 	menuFile->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( frameMain::ShowMenu ), this, menuDecryptFiles->GetId());
 	menuFile->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( frameMain::ShowMenu ), this, menuEncryptFolder->GetId());
 	menuFile->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( frameMain::ShowMenu ), this, menuDecryptFolder->GetId());
+	menuAbout->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( frameMain::ShowAbout ), this, devAbout->GetId());
+	menuAbout->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( frameMain::ShowAbout ), this, algAbout->GetId());
+	menuAbout->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( frameMain::ShowAbout ), this, programAbout->GetId());
 }
 
 frameMain::~frameMain()

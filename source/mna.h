@@ -39,6 +39,9 @@
 #define DecryptFileID 1001
 #define EncryptFolderID 1002
 #define DecryptFolderID 1003
+#define ABOUT_DEV 1004
+#define ABOUT_ALG 1005
+#define ABOUT_PROGRAM 1006
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Class frameMain
@@ -76,9 +79,16 @@ class frameMain : public wxFrame
 		wxStaticText* filesAmountText;
 		wxPanel* endPanel;
 		wxRichTextCtrl* endText;
+		wxPanel* devPanel;
+		wxRichTextCtrl* m_richText4;
+		wxPanel* algPanel;
+		wxRichTextCtrl* m_richText5;
+		wxPanel* aboutPanel;
+		wxRichTextCtrl* m_richText6;
 		wxStatusBar* m_statusBar2;
 		wxMenuBar* menubarMain;
 		wxMenu* menuFile;
+		wxMenu* menuAbout;
 
 		// Virtual event handlers, override them in your derived class
 		virtual void InPlaceChange( wxCommandEvent& event ) { event.Skip(); }
@@ -88,11 +98,12 @@ class frameMain : public wxFrame
 		virtual void OnPasswordSubmit( wxCommandEvent& event ) { event.Skip(); }
 		virtual void FromConfirmToProcess( wxCommandEvent& event ) { event.Skip(); }
 		virtual void ShowMenu( wxCommandEvent& event ) { event.Skip(); }
+		virtual void ShowAbout( wxCommandEvent& event ) { event.Skip(); }
 
 
 	public:
 
-		frameMain( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("Example widget"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 525,425 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		frameMain( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = _("NoProblemCrypt v1.1.0"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 525,425 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
 		~frameMain();
 
