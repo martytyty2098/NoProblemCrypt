@@ -18,7 +18,7 @@ void MyApp::ShowErrorMsg(const wxString& msg, const wxString& caption)
 }
 
 MainFrame::MainFrame()
-    : frameMain(nullptr, wxID_ANY, wxT("NoProblemCrypt"), wxDefaultPosition),
+    : frameMain(nullptr, wxID_ANY),
     operatingMode(MainFrame::Mode::NONE)
 {
     SetIcon(wxIcon(key_icon));

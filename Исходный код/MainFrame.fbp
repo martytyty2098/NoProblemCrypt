@@ -51,7 +51,7 @@
       <property name="size">525,425</property>
       <property name="style">wxDEFAULT_FRAME_STYLE</property>
       <property name="subclass">; ; forward_declare</property>
-      <property name="title">NoProblemCrypt</property>
+      <property name="title">NoProblemCrypt v1.1.0</property>
       <property name="tooltip"></property>
       <property name="two_step_creation">0</property>
       <property name="window_extra_style"></property>

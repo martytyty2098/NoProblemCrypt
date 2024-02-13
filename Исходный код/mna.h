@@ -102,7 +102,7 @@ class frameMain : public wxFrame
 
 	public:
 
-		frameMain( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("NoProblemCrypt"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 525,425 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+		frameMain( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("NoProblemCrypt v1.1.0"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 525,425 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
 		~frameMain();
 
