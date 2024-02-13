@@ -16,8 +16,8 @@ frameMain::frameMain( wxWindow* parent, wxWindowID id, const wxString& title, co
 	wxBoxSizer* bSizerFrameMain;
 	bSizerFrameMain = new wxBoxSizer( wxVERTICAL );
 
-	greetingText = new wxRichTextCtrl( this, wxID_ANY, wxT("Как использовать: Нажмите на кнопку \"Файл\" в верхнем левом углу экрана.\n\nО программе:\nЭта программа создана для шифрования файлов любого типа. Любой файл зашифрованный этой программой может быть расшифрован только этой программой, используя тот же самый пароль который вы ввели при шифровании.\nВосстановить файлы без этого пароля будет невозможно, поэтому если вы утратите пароль, то потеряете ваши файлы навсегда, можете считать это как плюсом, так и минусом.\n\nРазработчик:\nЭлектронная почта: shkafchik.game@gmail.com\nИсходный код: https://github.com/martytyty2098/NoProblemCrypt\nАккаунт на Github: https://github.com/martytyty2098\n"), wxDefaultPosition, wxSize( -1,-1 ), wxTE_READONLY|wxBORDER_SIMPLE|wxHSCROLL|wxVSCROLL|wxWANTS_CHARS );
-	greetingText->SetFont( wxFont( 16, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Consolas") ) );
+	greetingText = new wxRichTextCtrl( this, wxID_ANY, wxT("Как использовать: Нажмите на кнопку \"Файл\" в верхнем левом углу экрана.\nС помощью этой программы также как и любой файл, можно полностью зашифровать съёмный носитель информации, например USB-флеш-накопитель или физический жёсткий диск. Для этого просто выберите \"Зашифровать папку\"."), wxDefaultPosition, wxSize( -1,-1 ), wxTE_READONLY|wxBORDER_SIMPLE|wxHSCROLL|wxVSCROLL|wxWANTS_CHARS );
+	greetingText->SetFont( wxFont( 16, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Constantia") ) );
 
 	bSizerFrameMain->Add( greetingText, 1, wxALL|wxEXPAND, 5 );
 
@@ -27,7 +27,7 @@ frameMain::frameMain( wxWindow* parent, wxWindowID id, const wxString& title, co
 	wxBoxSizer* bSizer5;
 	bSizer5 = new wxBoxSizer( wxVERTICAL );
 
-	infoText = new wxStaticText( panelMain, wxID_ANY, wxT("Вы выбрали 0 файлов"), wxPoint( 100,200 ), wxSize( -1,-1 ), wxALIGN_CENTER_HORIZONTAL );
+	infoText = new wxStaticText( panelMain, wxID_ANY, wxT("Вы выбрали 0 файлов"), wxPoint( -1,-1 ), wxSize( -1,-1 ), wxALIGN_CENTER_HORIZONTAL );
 	infoText->Wrap( -1 );
 	infoText->SetFont( wxFont( 14, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxT("Arial") ) );
 
@@ -40,17 +40,17 @@ frameMain::frameMain( wxWindow* parent, wxWindowID id, const wxString& title, co
 
 	bSizer5->Add( in_place_checkbox, 0, wxALIGN_CENTER|wxTOP, 30 );
 
-	dirPicker = new wxDirPickerCtrl( panelMain, wxID_ANY, wxT("Где новые файлы будут созданы"), wxT("Выберите папку"), wxDefaultPosition, wxSize( 300,-1 ), wxDIRP_DIR_MUST_EXIST|wxDIRP_USE_TEXTCTRL );
+	dirPicker = new wxDirPickerCtrl( panelMain, wxID_ANY, wxT("Где новые файлы будут созданы"), wxT("Выберите папку"), wxDefaultPosition, wxSize( 260,-1 ), wxDIRP_DIR_MUST_EXIST|wxDIRP_USE_TEXTCTRL );
 	dirPicker->SetFont( wxFont( 12, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false, wxT("Arial") ) );
 
-	bSizer5->Add( dirPicker, 0, wxALIGN_CENTER|wxTOP, 14 );
+	bSizer5->Add( dirPicker, 0, wxALIGN_CENTER|wxTOP, 20 );
 
-	mainButton = new wxButton( panelMain, wxID_ANY, wxT("Зашифровать"), wxDefaultPosition, wxSize( 200,45 ), 0 );
+	mainButton = new wxButton( panelMain, wxID_ANY, wxT("Зашифровать"), wxPoint( -1,-1 ), wxSize( 260,50 ), 0 );
 
 	mainButton->SetDefault();
 	mainButton->SetFont( wxFont( 18, wxFONTFAMILY_MODERN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Consolas") ) );
 
-	bSizer5->Add( mainButton, 0, wxALIGN_CENTER|wxTOP, 30 );
+	bSizer5->Add( mainButton, 0, wxALIGN_CENTER|wxTOP, 20 );
 
 	invalidDirInfo = new wxInfoBar( panelMain );
 	invalidDirInfo->SetShowHideEffects( wxSHOW_EFFECT_SLIDE_TO_RIGHT, wxSHOW_EFFECT_NONE );
@@ -192,6 +192,56 @@ frameMain::frameMain( wxWindow* parent, wxWindowID id, const wxString& title, co
 	bSizer6->Fit( endPanel );
 	bSizerFrameMain->Add( endPanel, 1, wxEXPAND | wxALL, 5 );
 
+	devPanel = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	devPanel->SetFont( wxFont( 16, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Calibri") ) );
+	devPanel->Hide();
+
+	wxBoxSizer* bSizer7;
+	bSizer7 = new wxBoxSizer( wxVERTICAL );
+
+	m_richText4 = new wxRichTextCtrl( devPanel, wxID_ANY, wxT("Электронная почта: \nshkafchik.game@gmail.com\n\nИсходный код: https://github.com/martytyty2098/NoProblemCrypt\n\nНа развитие проекта: \nBTC: 12xj878Ynwp7wRomw3fCqAehMxx8DcFQw5\nToncoin (TON): UQDkTwofgbl-f1F1sQWwhuo1yEVzro0AnXMeYQ2Gc5PHbyls\nUSDT TRC20: TNyPMHqUyPM4zz7jvwjBNb8qbLjnwU15jv"), wxDefaultPosition, wxDefaultSize, 0|wxVSCROLL|wxHSCROLL|wxNO_BORDER|wxWANTS_CHARS );
+	bSizer7->Add( m_richText4, 1, wxEXPAND | wxALL, 0 );
+
+
+	devPanel->SetSizer( bSizer7 );
+	devPanel->Layout();
+	bSizer7->Fit( devPanel );
+	bSizerFrameMain->Add( devPanel, 1, wxEXPAND | wxALL, 5 );
+
+	algPanel = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	algPanel->Hide();
+
+	wxBoxSizer* bSizer8;
+	bSizer8 = new wxBoxSizer( wxVERTICAL );
+
+	m_richText5 = new wxRichTextCtrl( algPanel, wxID_ANY, wxT("Эта программа использует авторский побайтовый способ шифрования который гарантирует, что ваши файлы можно будет расшифровать только этой программой, используя тот же самый пароль который вы ввели, однако, ключ используемый для шифрования файла не сохраняется в самом файле.\nМетаданные файлов (корме названия) так же шифруются.\nНи один файл зашифрованный с помощю NoProblemCrypt не может быть идентифицирован, его невозможно отличить от набора случайных данных, то есть файл нельзя связать с NoProblemCrypt как с программой, его создавшей, ни в какой форме и рамках."), wxDefaultPosition, wxDefaultSize, 0|wxVSCROLL|wxHSCROLL|wxNO_BORDER|wxWANTS_CHARS );
+	m_richText5->SetFont( wxFont( 16, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Constantia") ) );
+
+	bSizer8->Add( m_richText5, 1, wxEXPAND | wxALL, 0 );
+
+
+	algPanel->SetSizer( bSizer8 );
+	algPanel->Layout();
+	bSizer8->Fit( algPanel );
+	bSizerFrameMain->Add( algPanel, 1, wxEXPAND | wxALL, 5 );
+
+	aboutPanel = new wxPanel( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL );
+	aboutPanel->Hide();
+
+	wxBoxSizer* bSizer9;
+	bSizer9 = new wxBoxSizer( wxVERTICAL );
+
+	m_richText6 = new wxRichTextCtrl( aboutPanel, wxID_ANY, wxT("Эта программа создана для шифрования файлов любого типа. Любой файл зашифрованный этой программой может быть расшифрован только этой программой, используя тот же самый пароль который вы ввели при шифровании.\nВосстановить файлы без этого пароля будет невозможно, поэтому если вы утратите пароль, то потеряете ваши файлы навсегда, можете считать это как плюсом, так и минусом."), wxDefaultPosition, wxDefaultSize, 0|wxVSCROLL|wxHSCROLL|wxNO_BORDER|wxWANTS_CHARS );
+	m_richText6->SetFont( wxFont( 16, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL, false, wxT("Constantia") ) );
+
+	bSizer9->Add( m_richText6, 1, wxEXPAND | wxALL, 0 );
+
+
+	aboutPanel->SetSizer( bSizer9 );
+	aboutPanel->Layout();
+	bSizer9->Fit( aboutPanel );
+	bSizerFrameMain->Add( aboutPanel, 1, wxEXPAND | wxALL, 0 );
+
 
 	this->SetSizer( bSizerFrameMain );
 	this->Layout();
@@ -218,6 +268,21 @@ frameMain::frameMain( wxWindow* parent, wxWindowID id, const wxString& title, co
 
 	menubarMain->Append( menuFile, wxT("Файл") );
 
+	aboutButton = new wxMenu();
+	wxMenuItem* aboutDev;
+	aboutDev = new wxMenuItem( aboutButton, ABOUT_DEV, wxString( wxT("Разработчик") ) , wxT("О разработчике этой программы"), wxITEM_NORMAL );
+	aboutButton->Append( aboutDev );
+
+	wxMenuItem* aboutAlg;
+	aboutAlg = new wxMenuItem( aboutButton, ABOUT_ALG, wxString( wxT("Способ шифрования") ) , wxT("Используемый способ шифрования"), wxITEM_NORMAL );
+	aboutButton->Append( aboutAlg );
+
+	wxMenuItem* aboutProgram;
+	aboutProgram = new wxMenuItem( aboutButton, ABOUT_PROGRAM, wxString( wxT("О программе") ) , wxT("О программе"), wxITEM_NORMAL );
+	aboutButton->Append( aboutProgram );
+
+	menubarMain->Append( aboutButton, wxT("Подробности") );
+
 	this->SetMenuBar( menubarMain );
 
 
@@ -235,6 +300,9 @@ frameMain::frameMain( wxWindow* parent, wxWindowID id, const wxString& title, co
 	menuFile->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( frameMain::ShowMenu ), this, menuDecryptFiles->GetId());
 	menuFile->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( frameMain::ShowMenu ), this, menuEncryptFolder->GetId());
 	menuFile->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( frameMain::ShowMenu ), this, menuDecryptFolder->GetId());
+	aboutButton->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( frameMain::ShowAbout ), this, aboutDev->GetId());
+	aboutButton->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( frameMain::ShowAbout ), this, aboutAlg->GetId());
+	aboutButton->Bind(wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( frameMain::ShowAbout ), this, aboutProgram->GetId());
 }
 
 frameMain::~frameMain()

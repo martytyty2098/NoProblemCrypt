@@ -45,6 +45,7 @@ public:
     void FromPasswordToMenu(wxCommandEvent& event) override;
     void InPlaceChange(wxCommandEvent& event) override;
     void FromConfirmToProcess(wxCommandEvent& event) override;
+    void ShowAbout(wxCommandEvent& event) override;
     void KillApp();
     void FromPasswordToConfirmation();
     void CheckAllFiles();
@@ -62,6 +63,7 @@ private:
     wxArrayString userDirs;
     std::filesystem::path sourceDir;
     wxString password;
+    wxPanel* currPanel = nullptr;
 };
 
 class ThreadMessage

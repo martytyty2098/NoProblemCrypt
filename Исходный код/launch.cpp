@@ -1,4 +1,5 @@
 #include "launch.h"
+#include "key_icon.xpm"
 
 wxDEFINE_EVENT(MESSAGE_FROM_THREAD, wxCommandEvent);
 
@@ -17,9 +18,10 @@ void MyApp::ShowErrorMsg(const wxString& msg, const wxString& caption)
 }
 
 MainFrame::MainFrame()
-    : frameMain(nullptr, wxID_ANY, wxT("NoProblemCrypt")),
+    : frameMain(nullptr, wxID_ANY, wxT("NoProblemCrypt"), wxDefaultPosition),
     operatingMode(MainFrame::Mode::NONE)
 {
+    SetIcon(wxIcon(key_icon));
     in_place = in_place_checkbox->IsChecked();
     greetingText->ApplyAlignmentToSelection(wxTEXT_ALIGNMENT_CENTER);
 }
@@ -48,7 +50,7 @@ void MainFrame::ShowMenu(wxCommandEvent& event)
 
     if (operatingMode & MainFrame::FILE)
     {
-        wxFileDialog selectFileDialog(this, wxString(wxT("Р’С‹Р±РµСЂРёС‚Рµ С„Р°Р№Р»С‹ С‡С‚РѕР±С‹ ")) + (operatingMode & MainFrame::ENCRYPT ? wxT("Р·Р°С€РёС„СЂРѕРІР°С‚СЊ") : wxT("СЂР°СЃС€РёС„СЂРѕРІР°С‚СЊ")), wxT("Р’СЃРµ С„Р°Р№Р»С‹ (*.*)|*.*"),
+        wxFileDialog selectFileDialog(this, wxString(wxT("Выберите файлы чтобы ")) + (operatingMode & MainFrame::ENCRYPT ? wxT("зашифровать") : wxT("расшифровать")), wxT("Все файлы (*.*)|*.*"),
             wxEmptyString, wxEmptyString, wxFD_OPEN | wxFD_FILE_MUST_EXIST | wxFD_MULTIPLE);
 
         if (selectFileDialog.ShowModal() == wxID_CANCEL) {
@@ -60,7 +62,7 @@ void MainFrame::ShowMenu(wxCommandEvent& event)
     }
     if (operatingMode & MainFrame::DIR)
     {
-        wxDirDialog selectDirDialog(this, wxString(wxT("Р’С‹Р±РµСЂРёС‚Рµ РїР°РїРєСѓ С‡С‚РѕР±С‹ ")) + (operatingMode & MainFrame::ENCRYPT ? wxT("Р·Р°С€РёС„СЂРѕРІР°С‚СЊ") : wxT("СЂР°СЃС€РёС„СЂРѕРІР°С‚СЊ")),
+        wxDirDialog selectDirDialog(this, wxString(wxT("Выберите папку чтобы ")) + (operatingMode & MainFrame::ENCRYPT ? wxT("зашифровать") : wxT("расшифровать")),
             wxEmptyString, wxDD_DEFAULT_STYLE | wxDD_DIR_MUST_EXIST);
 
         if (selectDirDialog.ShowModal() == wxID_CANCEL) {
@@ -81,14 +83,17 @@ void MainFrame::ShowMenu(wxCommandEvent& event)
         }
     }
 
+    if (currPanel) {
+        currPanel->Hide();
+    }
     greetingText->Hide();
     panelMain->Show();
     panelMain->GetContainingSizer()->Layout();
 
-    wxString info_output = wxT("Р’С‹ РІС‹Р±СЂР°Р»Рё ") + wxString::Format(wxT("%i"), userFiles.GetCount());
-    info_output.append(wxString(wxT(" С„Р°Р№Р»")) + (userFiles.GetCount() == 1 ? wxT("") : wxT("РѕРІ")) + wxT(" С‡С‚РѕР±С‹ ") + (operatingMode & MainFrame::ENCRYPT ? wxT("Р·Р°С€РёС„СЂРѕРІР°С‚СЊ") : wxT("СЂР°СЃС€РёС„СЂРѕРІР°С‚СЊ")) + wxT(".\n"));
+    wxString info_output = wxT("Вы выбрали ") + wxString::Format(wxT("%i"), userFiles.GetCount());
+    info_output.append(wxString(wxT(" файл")) + (userFiles.GetCount() == 1 ? wxT("") : wxT("ов")) + wxT(" чтобы ") + (operatingMode & MainFrame::ENCRYPT ? wxT("зашифровать") : wxT("расшифровать")) + wxT(".\n"));
     infoText->SetLabel(info_output);
-    mainButton->SetLabel(operatingMode & MainFrame::ENCRYPT ? wxT("Р—Р°С€РёС„СЂРѕРІР°С‚СЊ") : wxT("Р Р°СЃС€РёС„СЂРѕРІР°С‚СЊ"));
+    mainButton->SetLabel(operatingMode & MainFrame::ENCRYPT ? wxT("Зашифровать") : wxT("Расшифровать"));
     infoText->GetContainingSizer()->Layout();
 }
 
@@ -99,7 +104,7 @@ void MainFrame::MainButtonOnClick(wxCommandEvent& event)
         wxString storageDir = dirPicker->GetTextCtrlValue();
         if (!std::filesystem::is_directory(storageDir.fn_str()))
         {
-            invalidDirInfo->ShowMessage(wxT("РџР°РїРєР° РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚"));
+            invalidDirInfo->ShowMessage(wxT("Папка не существует"));
             return;
         }
         creationDir = wxString(storageDir.fn_str() / CreateFreeDir(storageDir.fn_str(),
@@ -170,7 +175,7 @@ void MainFrame::OnPasswordSubmit(wxCommandEvent& event)
     {
         if (!pwdctrl->GetValue().IsAscii())
         {
-            passwordEnterText->SetLabel(wxT("РџР°СЂРѕР»СЊ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ С‚РѕР»СЊРєРѕ Р°РЅРіР»РёР№СЃРєРёРµ Р±СѓРєРІС‹ Рё С†РёС„СЂС‹."));
+            passwordEnterText->SetLabel(wxT("Пароль должен содержать только английские буквы и цифры."));
             pwdctrl->SetValue("");
             pwdctrlHidden->SetValue("");
             if (pwdctrl->Show())
@@ -182,7 +187,7 @@ void MainFrame::OnPasswordSubmit(wxCommandEvent& event)
             return;
         }
         password = pwdctrl->GetValue();
-        passwordEnterText->SetLabel(wxT("РџРѕРІС‚РѕСЂРёС‚Рµ РїР°СЂРѕР»СЊ."));
+        passwordEnterText->SetLabel(wxT("Повторите пароль."));
         pwdctrl->SetValue("");
         pwdctrlHidden->SetValue("");
         pwdctrl->GetContainingSizer()->Layout();
@@ -202,7 +207,7 @@ void MainFrame::OnPasswordSubmit(wxCommandEvent& event)
         }
         else
         {
-            passwordEnterText->SetLabel(wxT("РџР°СЂРѕР»СЊ РЅРµ СЃРѕРІРїР°РґР°РµС‚, РїРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°."));
+            passwordEnterText->SetLabel(wxT("Пароль не совпадает, попробуйте снова."));
             pwdctrl->SetValue("");
             pwdctrlHidden->SetValue("");
             pwdctrl->GetContainingSizer()->Layout();
@@ -216,10 +221,12 @@ void MainFrame::FromPasswordToMenu(wxCommandEvent& event)
     password.Clear();
     passwordTxtCtrl->SetValue("");
     passwordTxtCtrlVisible->SetValue("");
+    passwordEnterText->SetLabel(wxT("Теперь вы должны ввести пароль который будете хранить в надёжном месте, если вы его потеряете то не соможете восстановить ваши файлы."));
+    passwordEnterText->Wrap(300);
+    passwordEnterText->GetContainingSizer()->Layout();
+    passwordEnterText->Wrap(300);
     passwordPanel->Hide();
     panelMain->Show();
-    passwordEnterText->SetLabel(wxT("РўРµРїРµСЂСЊ РІС‹ РґРѕР»Р¶РЅС‹ РІРІРµСЃС‚Рё РїР°СЂРѕР»СЊ РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚Рµ С…СЂР°РЅРёС‚СЊ РІ РЅР°РґС‘Р¶РЅРѕРј РјРµСЃС‚Рµ, РµСЃР»Рё РІС‹ РµРіРѕ РїРѕС‚РµСЂСЏРµС‚Рµ С‚Рѕ РЅРµ СЃРѕРјРѕР¶РµС‚Рµ РІРѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ РІР°С€Рё С„Р°Р№Р»С‹."));
-    passwordEnterText->GetContainingSizer()->Layout();
     panelMain->GetContainingSizer()->Layout();
 }
 
@@ -244,9 +251,9 @@ void MainFrame::KillApp()
 
 void MainFrame::FromConfirmToProcess(wxCommandEvent& event)
 {
-    if (licenseLink->GetLabel() != wxT("Р’С‹ РїСЂРѕС‡РёС‚Р°Р»Рё РІСЃС‘ РІС‹С€Рµ?"))
+    if (licenseLink->GetLabel() != wxT("Вы прочитали всё выше?"))
     {
-        licenseLink->SetLabel(wxT("Р’С‹ РїСЂРѕС‡РёС‚Р°Р»Рё РІСЃС‘ РІС‹С€Рµ?"));
+        licenseLink->SetLabel(wxT("Вы прочитали всё выше?"));
         licenseLink->GetContainingSizer()->Layout();
         return;
     }
@@ -263,6 +270,28 @@ void MainFrame::FromConfirmToProcess(wxCommandEvent& event)
     work_horse.detach();
 }
 
+void MainFrame::ShowAbout(wxCommandEvent& event)
+{
+    if (currStage != MainFrame::Greeting) return;
+    if (currPanel) currPanel->Hide();
+    else greetingText->Hide();
+    switch (event.GetId()) {
+    case ABOUT_DEV:
+        currPanel = devPanel;
+        break;
+    case ABOUT_ALG:
+        currPanel = algPanel;
+        break;
+    case ABOUT_PROGRAM:
+        currPanel = aboutPanel;
+        break;
+    default:
+        return;
+    }
+    currPanel->Show();
+    currPanel->GetContainingSizer()->Layout();
+}
+
 void MainFrame::FromPasswordToConfirmation()
 {
     currStage = MainFrame::Confirmation;
@@ -274,20 +303,20 @@ void MainFrame::FromPasswordToConfirmation()
     {
         if (operatingMode & MainFrame::ENCRYPT)
         {
-            confirmationInfo->WriteText(wxT("Р’С‹ РІС‹Р±СЂР°Р»Рё Р·Р°С€РёС„СЂРѕРІР°С‚СЊ С„Р°Р№Р»С‹ РЅР° РјРµСЃС‚Рµ, СЌС‚Рѕ Р·РЅР°С‡РёС‚ С‡С‚Рѕ РѕРЅРё Р±СѓРґСѓС‚ РїРµСЂРµРїРёСЃР°РЅС‹ Рё РµРґРёРЅСЃС‚РІРµРЅРЅС‹Р№ СЃРїРѕСЃРѕР± РёС… РІРѕСЃСЃС‚Р°РЅРѕРІРёС‚СЊ - СЂР°СЃС€РёС„СЂРѕРІР°С‚СЊ РёС… РёСЃРїРѕР»СЊР·СѓСЏ РїР°СЂРѕР»СЊ, РєРѕС‚РѕСЂС‹Р№ РІС‹ РІРІРµР»Рё СЂР°РЅРµРµ.\n"));
+            confirmationInfo->WriteText(wxT("Вы выбрали зашифровать файлы на месте, это значит что они будут переписаны и единственный способ их восстановить - расшифровать их используя пароль, который вы ввели ранее.\n"));
         }
         
         confirmationInfo->BeginTextColour(wxColour(170, 0, 0));
-        confirmationInfo->WriteText(wxT("Р’РђР–РќРћ: РќР• Р—РђРљР Р«Р’РђР™РўР• РџР РћР“Р РђРњРњРЈ Р’Рћ Р’Р Р•РњРЇ РЎР›Р•Р”РЈР®Р©Р•Р“Рћ Р­РўРђРџРђ. Р•СЃР»Рё Р·Р°РєСЂРѕРµС‚Рµ, С‚Рѕ РѕРґРёРЅ РёР· РІР°С€РёС… С„Р°Р№Р»РѕРІ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїРѕРІСЂРµР¶РґС‘РЅ."));
+        confirmationInfo->WriteText(wxT("ВАЖНО: НЕ ЗАКРЫВАЙТЕ ПРОГРАММУ ВО ВРЕМЯ СЛЕДУЮЩЕГО ЭТАПА. Если закроете, то один из ваших файлов может быть повреждён."));
         confirmationInfo->EndTextColour();
     }
     else
     {
-        confirmationInfo->WriteText(wxString(wxT("Р’СЃРµ РІР°С€Рё ")) + (operatingMode & MainFrame::ENCRYPT ? wxT("Р·Р°С€РёС„СЂРѕРІР°РЅРЅС‹Рµ") : wxT("СЂР°СЃС€РёС„СЂРѕРІР°РЅРЅС‹Рµ")) + wxT(" С„Р°Р№Р»С‹ Р±СѓРґСѓС‚ СЃРѕР·РґР°РЅС‹ РІ РїР°РїРєРµ:\n"));
+        confirmationInfo->WriteText(wxString(wxT("Все ваши ")) + (operatingMode & MainFrame::ENCRYPT ? wxT("зашифрованные") : wxT("расшифрованные")) + wxT(" файлы будут созданы в папке:\n"));
         confirmationInfo->WriteText(creationDir + wxT("\n"));
     }
     confirmationInfo->BeginBold();
-    confirmationInfo->WriteText(wxT(" Р•СЃР»Рё РІС‹ Р·Р°Р±СѓРґРµС‚Рµ РїР°СЂРѕР»СЊ, РІР°С€Рё С„Р°Р№Р»С‹ Р±СѓРґСѓС‚ СѓС‚СЂР°С‡РµРЅС‹ РЅР°РІСЃРµРіРґР°.\n"));
+    confirmationInfo->WriteText(wxT(" Если вы забудете пароль, ваши файлы будут утрачены навсегда.\n"));
     confirmationInfo->EndBold();
 }
 
@@ -303,9 +332,9 @@ void MainFrame::CheckAllFiles()
         std::fstream tempfs(userFiles[i].fn_str(), ios_flag);
         if (!tempfs.is_open())
         {
-            MyApp::ShowErrorMsg(wxT("Р¤Р°Р№Р» РїРѕ РїСѓС‚Рё ") + userFiles[i] +
-                wxT(" РЅРµ Р±С‹Р» РѕС‚РєСЂС‹С‚ РїРѕС‚РѕРјСѓ С‡С‚Рѕ Сѓ РїСЂРѕРіСЂР°РјРјС‹ РЅРµС‚ Рє РЅРµРјСѓ РґРѕСЃС‚СѓРїР°, РїРѕРїСЂРѕР±СѓР№С‚Рµ СѓР±СЂР°С‚СЊ СЃ С‚РѕРіРѕ С„Р°Р№Р»Р° \"С‚РѕР»СЊРєРѕ С‡С‚РµРЅРёРµ\" РёР»Рё Р·Р°РїСѓСЃС‚РёС‚Рµ СЌС‚Сѓ РїСЂРѕРіСЂР°РјРјСѓ РІ СЂРµР¶РёРјРµ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°."),
-                wxT("РћС€РёР±РєР°: С„Р°Р№Р» РЅРµ РѕС‚РєСЂС‹С‚"));
+            MyApp::ShowErrorMsg(wxT("Файл по пути ") + userFiles[i] +
+                wxT(" не был открыт потому что у программы нет к нему доступа, попробуйте убрать с того файла \"только чтение\" или запустите эту программу в режиме администратора."),
+                wxT("Ошибка: файл не открыт"));
 		    this->KillApp();
 		    return;
         }
@@ -320,7 +349,7 @@ void MainFrame::CheckAllFiles()
 
 void MainFrame::ProcessAllFiles()
 {
-    for (size_t i = 0; i < userDirs.GetCount(); ++i)
+    for (size_t i = 0; i < userDirs.GetCount() && !in_place; ++i)
     {
         std::filesystem::path relative = std::filesystem::relative(userDirs[i].fn_str(), sourceDir);
         std::filesystem::path toCreate = std::filesystem::path(creationDir.fn_str()) / relative;
@@ -336,7 +365,7 @@ void MainFrame::ProcessAllFiles()
         }
         {
             auto evt = new wxCommandEvent(MESSAGE_FROM_THREAD);
-            evt->SetClientData(new ThreadMessage(ThreadMessage::CHANGE_FILES_AMOUNT_TEXT, -1, -1, wxString::Format(wxT("%i"), i) + wxT(" С„Р°Р№Р»РѕРІ РёР· ") + wxString::Format(wxT("%i"), userFiles.GetCount())));
+            evt->SetClientData(new ThreadMessage(ThreadMessage::CHANGE_FILES_AMOUNT_TEXT, -1, -1, wxString::Format(wxT("%i"), i) + wxT(" файлов из ") + wxString::Format(wxT("%i"), userFiles.GetCount())));
             wxQueueEvent(this, evt);
         }
         
@@ -382,10 +411,10 @@ void MainFrame::FromProcessToEnd()
     endPanel->GetContainingSizer()->Layout();
     wxString endTextVal;
     if (!in_place) {
-        endTextVal = (operatingMode & MainFrame::ENCRYPT ? wxString(wxT("Р—Р°С€РёС„СЂРѕРІР°РЅРЅС‹Рµ")) : wxString(wxT("Р Р°СЃС€РёС„СЂРѕРІР°РЅРЅС‹Рµ"))) + wxT(" С„Р°Р№Р»С‹ Р±С‹Р»Рё СЃРѕР·РґР°РЅС‹ РІ РїР°РїРєРµ ") + creationDir + wxT("\n");
+        endTextVal = (operatingMode & MainFrame::ENCRYPT ? wxString(wxT("Зашифрованные")) : wxString(wxT("Расшифрованные"))) + wxT(" файлы были созданы в папке ") + creationDir + wxT("\n");
     }
-    endTextVal.append(wxT("РџСЂРѕРіСЂР°РјРјР° РѕС‚СЂР°Р±РѕС‚Р°Р»Р°, СЃРјРѕС‚СЂРёС‚Рµ Р»РѕРі РІРЅРёР·Сѓ РµСЃР»Рё РІРѕР·РЅРёРєР»Рё РѕС€РёР±РєРё."));
-    endTextVal.append(wxT("\nР›РѕРі:\n") + (NPClog.empty() ? wxString(wxT("РџСѓСЃС‚Рѕ")) : NPClog));
+    endTextVal.append(wxT("Программа отработала, смотрите лог внизу если возникли ошибки."));
+    endTextVal.append(wxT("\nЛог:\n") + (NPClog.empty() ? wxString(wxT("Пусто")) : NPClog));
     endText->SetValue(endTextVal);
 }
 
@@ -410,16 +439,16 @@ std::filesystem::path FastEncryptFile(const wxString& path_to_file, const std::s
     if (!file.is_open())
     {
         auto evt = new wxCommandEvent(MESSAGE_FROM_THREAD);
-        evt->SetClientData(new ThreadMessage(ThreadMessage::LOG_APPEND, -1, -1, wxT("РћС€РёР±РєР°: Р¤Р°Р№Р» РїРѕ РїСѓС‚Рё ") + path_to_file +
-            wxT(" РЅРµ Р±С‹Р» РѕС‚РєСЂС‹С‚ РїРѕС‚РѕРјСѓ С‡С‚Рѕ Сѓ РїСЂРѕРіСЂР°РјРјС‹ РЅРµС‚ Рє РЅРµРјСѓ РґРѕСЃС‚СѓРїР°, РїРѕС‚РѕРјСѓ Р±С‹Р» РїСЂРѕРїСѓС‰РµРЅ РїСЂРѕРіСЂР°РјРјРѕР№, РїРѕРїСЂРѕР±СѓР№С‚Рµ СѓР±СЂР°С‚СЊ СЃ С‚РѕРіРѕ С„Р°Р№Р»Р° \"С‚РѕР»СЊРєРѕ С‡С‚РµРЅРёРµ\" РёР»Рё Р·Р°РїСѓСЃС‚РёС‚Рµ СЌС‚Сѓ РїСЂРѕРіСЂР°РјРјСѓ РІ СЂРµР¶РёРјРµ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°.\n")));
+        evt->SetClientData(new ThreadMessage(ThreadMessage::LOG_APPEND, -1, -1, wxT("Ошибка: Файл по пути ") + path_to_file +
+            wxT(" не был открыт потому что у программы нет к нему доступа, потому был пропущен программой, попробуйте убрать с того файла \"только чтение\" или запустите эту программу в режиме администратора.\n")));
         wxQueueEvent(mainFrame, evt);
         return std::string();
     }
     if (!clonedFile.is_open() && !in_place)
     {
         auto evt = new wxCommandEvent(MESSAGE_FROM_THREAD);
-        evt->SetClientData(new ThreadMessage(ThreadMessage::LOG_APPEND, -1, -1, wxT("РћС€РёР±РєР°: РќРµ СѓРґР°Р»РѕСЃСЊ СЃРѕР·РґР°С‚СЊ С„Р°Р№Р» РїРѕ РїСѓС‚Рё ") + writeDir +
-            wxT(" РїРѕРїСЂРѕР±СѓР№С‚Рµ Р·Р°РїСѓСЃС‚РёС‚СЊ СЌС‚Сѓ РїСЂРѕРіСЂР°РјРјСѓ РІ СЂРµР¶РёРјРµ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР° РёР»Рё РѕСЃРІРѕР±РѕРґРёС‚СЊ РјРµСЃС‚Рѕ РЅР° РґРёСЃРєРµ.\n")));
+        evt->SetClientData(new ThreadMessage(ThreadMessage::LOG_APPEND, -1, -1, wxT("Ошибка: Не удалось создать файл по пути ") + writeDir +
+            wxT(" попробуйте запустить эту программу в режиме администратора или освободить место на диске.\n")));
         wxQueueEvent(mainFrame, evt);
         return std::string();
     }
@@ -470,8 +499,8 @@ std::filesystem::path FastEncryptFile(const wxString& path_to_file, const std::s
     if (!in_place && std::filesystem::file_size(filePath) != std::filesystem::file_size(clonedFilePath))
     {
         auto evt = new wxCommandEvent(MESSAGE_FROM_THREAD);
-        evt->SetClientData(new ThreadMessage(ThreadMessage::LOG_APPEND, -1, -1, wxString(wxT("РќРµ СѓРґР°Р»РѕСЃСЊ Р±РµР·РѕРїР°СЃРЅРѕ ")) + (encrypt ? wxT("Р·Р°С€РёС„СЂРѕР°С‚СЊ") : wxT("СЂР°СЃС€РёС„СЂРѕРІР°С‚СЊ")) + wxT(" С„Р°Р№Р» РїРѕ РїСѓС‚Рё ") + path_to_file +
-            wxT(" РїРѕС‚РѕРјСѓ СЌС‚РѕС‚ С„Р°Р№Р» Р±С‹Р» РїСЂРѕРїСѓС‰РµРЅ РїСЂРіСЂР°РјРјРѕР№, РїРѕРїСЂРѕР±СѓР№С‚Рµ Р·Р°РїСѓСЃС‚РёС‚СЊ СЌС‚Сѓ РїСЂРѕРіСЂР°РјРјСѓ РІ СЂРµР¶РёРјРµ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР° РёР»Рё РѕСЃРІРѕР±РѕРґРёС‚СЊ РјРµСЃС‚Рѕ РЅР° РґРёСЃРєРµ.\n")));
+        evt->SetClientData(new ThreadMessage(ThreadMessage::LOG_APPEND, -1, -1, wxString(wxT("Не удалось безопасно ")) + (encrypt ? wxT("зашифроать") : wxT("расшифровать")) + wxT(" файл по пути ") + path_to_file +
+            wxT(" потому этот файл был пропущен прграммой, попробуйте запустить эту программу в режиме администратора или освободить место на диске.\n")));
         wxQueueEvent(mainFrame, evt);
         
         safeDeleteFile(clonedFilePath);
@@ -525,8 +554,8 @@ std::filesystem::path CreateFreeDir(const std::filesystem::path& parentDir, cons
 
     if (!std::filesystem::create_directory(path_out))
     {
-        MyApp::ShowErrorMsg(wxT("РќРµ СѓРґР°Р»РѕСЃСЊ СЃРѕР·РґР°С‚СЊ РїР°РїРєСѓ РїРѕРґ ") + wxString(parentDir) + " РїРѕРїСЂРѕР±СѓР№С‚Рµ Р·Р°РїСѓСЃС‚РёС‚СЊ СЌС‚Сѓ РїСЂРѕРіСЂР°РјРјСѓ РІ СЂРµР¶РёРјРµ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°.",
-            wxT("РћС€РёР±РєР°: РЅРµ СѓРґР°Р»РѕСЃСЊ СЃРѕР·РґР°С‚СЊ РїР°РїРєСѓ"));
+        MyApp::ShowErrorMsg(wxT("Не удалось создать папку под ") + wxString(parentDir) + " попробуйте запустить эту программу в режиме администратора.",
+            wxT("Ошибка: не удалось создать папку"));
     }
     return path_out;
 }
