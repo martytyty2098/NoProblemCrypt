@@ -24,6 +24,10 @@ MainFrame::MainFrame()
     SetIcon(wxIcon(key_icon));
     in_place = in_place_checkbox->IsChecked();
     greetingText->ApplyAlignmentToSelection(wxTEXT_ALIGNMENT_CENTER);
+    greetingText->BeginTextColour(wxColour(170, 0, 0));
+    greetingText->SetCaretPosition(greetingText->GetValue().length());
+    greetingText->WriteText(wxT("¬вод неправильного парол€ при попытке расшифровать файл, приведЄт к потере этого файла."));
+    greetingText->EndTextColour();
 }
 
 void MainFrame::ShowMenu(wxCommandEvent& event)
@@ -176,6 +180,7 @@ void MainFrame::OnPasswordSubmit(wxCommandEvent& event)
         if (!pwdctrl->GetValue().IsAscii())
         {
             passwordEnterText->SetLabel(wxT("ѕароль должен содержать только английские буквы и цифры."));
+            passwordEnterText->Wrap(300);
             pwdctrl->SetValue("");
             pwdctrlHidden->SetValue("");
             if (pwdctrl->Show())
