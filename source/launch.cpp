@@ -24,6 +24,10 @@ MainFrame::MainFrame()
     SetIcon(wxIcon(key_icon));
     in_place = in_place_checkbox->IsChecked();
     greetingText->ApplyAlignmentToSelection(wxTEXT_ALIGNMENT_CENTER);
+    greetingText->BeginTextColour(wxColour(170, 0, 0));
+    greetingText->SetCaretPosition(greetingText->GetValue().length());
+    greetingText->WriteText(wxT("Entering an incorrect password when trying to decrypt a file will result in the loss of the file."));
+    greetingText->EndTextColour();
 }
 
 void MainFrame::ShowMenu(wxCommandEvent& event)
